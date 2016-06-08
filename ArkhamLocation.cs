@@ -1,5 +1,7 @@
 namespace Arkham
 {
+	enum OtherWorld{Dreamlands};
+
 	public class Gate
 	{
 		OtherWorld otherworld;
@@ -12,10 +14,4 @@ namespace Arkham
 			this.difficulty = difficulty;
 			this.shape = shape;
 		}
-	
-	public class OtherWorld : Location
-	{
-		List<Gate> openGates;
-		List<Investigators> thoseInFirstLocation, thoseInSecondLocation;
-	}
 }

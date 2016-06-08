@@ -1,7 +1,7 @@
 namespace Arkham
 {
 	enum CardType{Unique, Common, Skill, Spell, ArkhamEncounter, OtherWorldEncounter};
-
+	
 	public class Card
 	{
 		CardType type;
