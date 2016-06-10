@@ -4,7 +4,7 @@ namespace Arkham
 	{
 		public static void Main()
 		{
-			Investigator carl = new Investigator(new int[2]{5, 5}, new int[2]{4, 4}, 3, 2);
+			Investigator carl = new Investigator("Carl", new int[2]{5, 5}, new int[2]{4, 4}, 5, 2);
 			Monster mon = new Monster(-1, 1, 1, -1, 2, 1);
 			fight(carl, mon);
 		}
@@ -23,7 +23,7 @@ namespace Arkham
 				}
 				else
 				{
-					System.Console.WriteLine("Monster dealt " + m.damage + " damage");
+					System.Console.WriteLine("Monster dealt " + m.damage + " damage! " + i.name + " has " + i.stamina[0] + "/" + i.stamina[1] + " stamina");
 					i.stamina[0] -= m.damage;
 					curr = i.stamina[0];
 					if(curr <= 0)
