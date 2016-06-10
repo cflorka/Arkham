@@ -4,8 +4,8 @@ namespace Arkham
 	{
 		public static void Main()
 		{
-			Investigator carl = new Investigator("Carl", new int[2]{5, 5}, new int[2]{4, 4}, 5, 2);
-			Monster mon = new Monster(-1, 1, 1, -1, 2, 1);
+			Investigator carl = new Investigator("Carl", new int[2]{5, 5}, new int[2]{4, 4}, 4, 3);
+			Monster mon = new Monster(-1, -2, 1, -1, 2, 1);
 			fight(carl, mon);
 		}
 		
@@ -13,7 +13,17 @@ namespace Arkham
 		{
 			bool fightOver = false;
 			int curr = i.stamina[0];
-			//HorrorCheck
+			// Horror Check
+			if(i.RollDice(i.will + m.horrorCheck) < 1)
+			{
+				i.loseSanity(m.sanityDam);
+				fightOver = i.sanity[0] < 0;
+			}
+			else
+			{
+				System.Console.WriteLine("Investigator passed Horror check");
+			}
+			// Fight
 			while(!fightOver)
 			{
 				if(i.RollDice(i.fight + m.fight) > m.toughness)
@@ -23,17 +33,14 @@ namespace Arkham
 				}
 				else
 				{
-					System.Console.WriteLine("Monster dealt " + m.damage + " damage! " + i.name + " has " + i.stamina[0] + "/" + i.stamina[1] + " stamina");
-					i.stamina[0] -= m.damage;
+					i.dealDamage(m.damage);
+					
 					curr = i.stamina[0];
-					if(curr <= 0)
-					{
-						i.stamina[0] = 1;
-						System.Console.WriteLine("Investigator lost!");
-						fightOver = true;
-					}
+					fightOver = curr <= 0;
 				}
+				//ask input. Only set fightOver to true, can't set to false
 			}
+			i.resolve();
 		}
 	}
 }
