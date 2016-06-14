@@ -9,13 +9,15 @@ namespace Arkham
 		internal int DICE = 6; //game uses d6
 		internal int success = 5;
 		internal int[] stamina, sanity;
-		internal int fight, will;
+		internal int speed, sneak, fight, will;
 
-		public Investigator(string name, int[] stamina, int[] sanity, int fight, int will)
+		public Investigator(string name, int[] stamina, int[] sanity, int speed, int sneak, int fight, int will)
 		{
 			this.name = name;
 			this.stamina = stamina;
 			this.sanity = sanity;
+			this.speed = speed;
+			this.sneak = sneak;
 			this.fight = fight;
 			this.will = will;
 		}
@@ -63,7 +65,7 @@ namespace Arkham
 		public void dealDamage(int dam)
 		{
 			stamina[0] -= dam;
-			System.Console.WriteLine(name + "takes " + dam + " damage! " + name + " has " + healthString() + " stamina");
+			System.Console.WriteLine(name + " takes " + dam + " damage! " + name + " has " + healthString() + " stamina");
 		}
 
 		public void loseSanity(int dam)
@@ -74,15 +76,8 @@ namespace Arkham
 
 		public int RollDice(int numOfDice)
 		{
-			int roll, numSuccesses = 0;
-			Console.Write(name + " rolled ");
-			for(int i = 0; i < numOfDice; ++i)
-			{
-				roll = roller.Next(1, DICE + 1);
-				Console.Write("" + roll + ", ");
-				if(roll >= success){++numSuccesses;}
-			}
-			return numSuccesses;
+			Console.Write(name);
+			return Dice.RollDice(numOfDice, success);
 		}
 	}
 }
