@@ -9,9 +9,9 @@ namespace Arkham
 		internal int DICE = 6; //game uses d6
 		internal int success = 5;
 		internal int[] stamina, sanity;
-		internal int speed, sneak, fight, will;
+		internal int speed, sneak, fight, will, lore, luck;
 
-		public Investigator(string name, int[] stamina, int[] sanity, int speed, int sneak, int fight, int will)
+		public Investigator(string name, int[] stamina, int[] sanity, int speed, int sneak, int fight, int will, int lore, int luck)
 		{
 			this.name = name;
 			this.stamina = stamina;
@@ -20,6 +20,8 @@ namespace Arkham
 			this.sneak = sneak;
 			this.fight = fight;
 			this.will = will;
+			this.lore = lore;
+			this.luck = luck;
 		}
 
 		public int currentHealth()

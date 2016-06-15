@@ -4,14 +4,12 @@ namespace Arkham
 {
 	public class Encounter
 	{
-		public static bool encounterResult(int baseMods, int difficulty)
-		{
-			return true;
-		}
 		public static void Main()
 		{
-			Investigator carl = new Investigator("Carl", new int[2]{5, 5}, new int[2]{4, 4}, 3, 2, 4, 3);
-			Monster mon = new Monster(-1, -1, 1, -1, 2, 1);
+			//Investigator(name, currStam/total, currSanity/total, speed, sneak, fight, will, lore, luck)
+			Investigator carl = new Investigator("Carl", new int[2]{5, 5}, new int[2]{3, 3}, 3, 2, 4, 3, 2, 2);
+			//Monster(sneak, horrorCheck, sanityDam, fight, damage, toughness)
+			Monster mon = new Monster(-1, -1, 3, -1, 2, 1); 
 			fight(carl, mon);
 		}
 
@@ -32,7 +30,7 @@ namespace Arkham
 			return fightOver;
 		}
 
-		private static bool combat(Investigator i, Monster m)
+		private static bool fight(Investigator i, Monster m)
 		{
 			Console.WriteLine("Combat Check");
 			Console.Write("  ");
@@ -68,7 +66,7 @@ namespace Arkham
 			return fightOver;
 		}
 
-		public static void fight(Investigator i, Monster m)
+		public static void combat(Investigator i, Monster m)
 		{
 			bool fightOver = false;
 			fightOver = horrorCheck(i, m);
@@ -83,7 +81,7 @@ namespace Arkham
 				}
 				else
 				{
-					fightOver = combat(i, m);
+					fightOver = fight(i, m);
 				}
 			}
 			i.resolve();
