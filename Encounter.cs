@@ -9,8 +9,25 @@ namespace Arkham
 			//Investigator(name, currStam/total, currSanity/total, speed, sneak, fight, will, lore, luck)
 			Investigator carl = new Investigator("Carl", new int[2]{5, 5}, new int[2]{3, 3}, 3, 2, 4, 3, 2, 2);
 			//Monster(sneak, horrorCheck, sanityDam, fight, damage, toughness)
-			Monster mon = new Monster(-1, -1, 3, -1, 2, 1); 
-			fight(carl, mon);
+			Monster bat = new Monster("bat", -1, -1, 3, -1, 2, 1); 
+			initMonster(carl, bat);
+		}
+
+		public static void initMonster(Investigator i, Monster m)
+		{
+			bool avoidMon = false;
+			string response = "";
+			Console.WriteLine("You've encountered a " + m.name  + ". R)un or F)ight?");
+			response = Console.ReadLine();
+			if(response.ToUpper().StartsWith("R"))
+			{
+				avoidMon = evade(i, m);
+			}
+			if(! avoidMon)
+			{
+				fightMon(i, m);
+			}
+			i.resolve();
 		}
 
 		private static bool horrorCheck(Investigator i, Monster m)
@@ -20,8 +37,8 @@ namespace Arkham
 			bool fightOver = false;
 			if(i.RollDice(i.will + m.horrorCheck) < 1)
 			{
-				i.loseSanity(m.sanityDam);
-				fightOver = i.sanity[0] < 0;
+				m.horrify(i);
+				fightOver = i.sanity[0] <= 0;
 			}
 			else
 			{
@@ -30,7 +47,7 @@ namespace Arkham
 			return fightOver;
 		}
 
-		private static bool fight(Investigator i, Monster m)
+		private static bool combat(Investigator i, Monster m)
 		{
 			Console.WriteLine("Combat Check");
 			Console.Write("  ");
@@ -42,7 +59,7 @@ namespace Arkham
 			}
 			else
 			{
-				i.dealDamage(m.damage);
+				m.attack(i);
 				fightOver = i.stamina[0] <= 0;
 			}
 			return fightOver;
@@ -55,7 +72,7 @@ namespace Arkham
 			bool fightOver;
 			if(i.RollDice(i.sneak + m.horrorCheck) < 1)
 			{
-				i.dealDamage(m.damage);
+				m.attack(i);
 				fightOver = i.stamina[0] <= 0;
 			}
 			else
@@ -66,7 +83,7 @@ namespace Arkham
 			return fightOver;
 		}
 
-		public static void combat(Investigator i, Monster m)
+		public static void fightMon(Investigator i, Monster m)
 		{
 			bool fightOver = false;
 			fightOver = horrorCheck(i, m);
@@ -81,7 +98,7 @@ namespace Arkham
 				}
 				else
 				{
-					fightOver = fight(i, m);
+					fightOver = combat(i, m);
 				}
 			}
 			i.resolve();
