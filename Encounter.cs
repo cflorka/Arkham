@@ -7,10 +7,10 @@ namespace Arkham
 		public static void Main()
 		{
 			//Investigator(name, currStam/total, currSanity/total, speed, sneak, fight, will, lore, luck)
-			Investigator carl = new Investigator("Carl", new int[2]{5, 5}, new int[2]{3, 3}, 3, 2, 4, 3, 2, 2);
+			Investigator mike = new MichaelMcGlen();
 			//Monster(sneak, horrorCheck, sanityDam, fight, damage, toughness)
 			Monster bat = new Monster("bat", -1, -1, 3, -1, 2, 1); 
-			initMonster(carl, bat);
+			initMonster(mike, bat);
 		}
 
 		public static void initMonster(Investigator i, Monster m)

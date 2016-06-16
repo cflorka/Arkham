@@ -5,17 +5,16 @@ namespace Arkham
 	public class Investigator
 	{
 		internal String name;
-		internal Random roller = new Random();
-		internal int DICE = 6; //game uses d6
-		internal int success = 5;
-		internal int[] stamina, sanity;
+		internal int[] stamina, sanity, focus;
 		internal int speed, sneak, fight, will, lore, luck;
+		internal int success = 5;
 
-		public Investigator(string name, int[] stamina, int[] sanity, int speed, int sneak, int fight, int will, int lore, int luck)
+		public Investigator(string name, int[] stamina, int[] sanity, int[] focus, int speed, int sneak, int fight, int will, int lore, int luck)
 		{
 			this.name = name;
 			this.stamina = stamina;
 			this.sanity = sanity;
+			this.focus = focus;
 			this.speed = speed;
 			this.sneak = sneak;
 			this.fight = fight;
@@ -64,7 +63,7 @@ namespace Arkham
 			}
 		}
 
-		public void takeDamage(int dam)
+		public virtual void takeDamage(int dam)
 		{
 			stamina[0] -= dam;
 			System.Console.WriteLine(name + " takes " + dam + " damage! " + name + " has " + healthString() + " stamina");
@@ -80,6 +79,16 @@ namespace Arkham
 		{
 			Console.Write(name);
 			return Dice.RollDice(numOfDice, success);
+		}
+		
+		public void bless()
+		{
+			success = max(4, success - 1);
+		}
+		
+		public void curse()
+		{
+			success = min(6, success + 1);
 		}
 	}
 }

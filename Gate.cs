@@ -12,6 +12,7 @@ namespace Arkham
 			this.difficulty = difficulty;
 			this.shape = shape;
 		}
+	}
 	
 	public class OtherWorld : Location
 	{
