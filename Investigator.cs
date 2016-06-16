@@ -6,10 +6,11 @@ namespace Arkham
 	{
 		internal String name;
 		internal int[] stamina, sanity, focus;
-		internal int speed, sneak, fight, will, lore, luck;
+		private int speed, sneak, fight, will, lore, luck;
+		private int speedSneakBar, fightWillBar, loreLuckBar;
 		internal int success = 5;
 
-		public Investigator(string name, int[] stamina, int[] sanity, int[] focus, int speed, int sneak, int fight, int will, int lore, int luck)
+		public Investigator(string name, int[] stamina, int[] sanity, int[] focus, int[] bars, int speed, int sneak, int fight, int will, int lore, int luck)
 		{
 			this.name = name;
 			this.stamina = stamina;
@@ -21,23 +22,33 @@ namespace Arkham
 			this.will = will;
 			this.lore = lore;
 			this.luck = luck;
+			speedSneakBar = bars[0];
+			fightWillBar = bars[1];
+			loreLuckBar = bars[2];
 		}
+		
+		public int getSpeed() {return speed + speedSneakBar;}
+		public int getSneak() {return sneak - speedSneakBar;}
+		public int getFight() {return fight + fightWillBar;}
+		public int getWill() {return will - fightWillBar;}
+		public int getLore() {return lore + loreLuckBar;}
+		public int getLuck() {return luck - loreLuckBar;}
 
 		public int currentHealth()
 		{
 			return stamina[0];
 		}
-		
+
 		public int totalHealth()
 		{
 			return stamina[1];
 		}
-		
+
 		public String healthString()
 		{
 			return "" + currentHealth() + "/" + totalHealth();
 		}
-		
+
 		public String sanityString()
 		{
 			return "" + sanity[0] + "/" + sanity[1];
@@ -80,15 +91,67 @@ namespace Arkham
 			Console.Write(name);
 			return Dice.RollDice(numOfDice, success);
 		}
-		
+
 		public void bless()
 		{
-			success = max(4, success - 1);
+			success = Math.Max(4, success - 1);
 		}
-		
+
 		public void curse()
 		{
-			success = min(6, success + 1);
+			success = Math.Min(6, success + 1);
+		}
+
+		public void moveSlider(int bar, int amount) //bar 1 = speed/sneak, 2 = fight/will, 3 = lore/luck
+		{
+			if (bar < 1 || bar > 3)
+			{
+				System.Console.WriteLine("Invalid bar");
+			}
+			else if (amount > focus[0])
+			{
+				System.Console.WriteLine("Not enough focus");
+			}
+			else
+			{
+				int newPos;
+				switch(bar)
+				{
+					case 1:
+						newPos = speedSneakBar + amount;
+						if(newPos > 3 || newPos < 0) Console.WriteLine("Slider can't go that far");
+						else
+						{
+							speedSneakBar = newPos;
+							focus[0] -= amount;
+						}
+						break;
+					case 2:
+						newPos = fightWillBar + amount;
+						if(newPos > 3 || newPos < 0) Console.WriteLine("Slider can't go that far");
+						else
+						{
+							fightWillBar = newPos;
+							focus[0] -= amount;
+						}
+						break;
+					case 3:
+						newPos = loreLuckBar + amount;
+						if(newPos > 3 || newPos < 0) Console.WriteLine("Slider can't go that far");
+						else
+						{
+							loreLuckBar = newPos;
+							focus[0] -= amount;
+						}
+						break;
+				}
+			}
+		}
+
+		public void newTurn()
+		{
+			focus[0] = focus[1];
+			//unexhaust cards
 		}
 	}
 }

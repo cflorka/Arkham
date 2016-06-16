@@ -8,8 +8,9 @@ namespace Arkham
 		{
 			//Investigator(name, currStam/total, currSanity/total, speed, sneak, fight, will, lore, luck)
 			Investigator mike = new MichaelMcGlen();
+			//mike.moveSlider(1, -1);
 			//Monster(sneak, horrorCheck, sanityDam, fight, damage, toughness)
-			Monster bat = new Monster("bat", -1, -1, 3, -1, 2, 1); 
+			Monster bat = new Monster("bat", -1, -1, 3, -1, 2, 1);
 			initMonster(mike, bat);
 		}
 
@@ -35,7 +36,7 @@ namespace Arkham
 			Console.WriteLine("Horror Check");
 			Console.Write("  ");
 			bool fightOver = false;
-			if(i.RollDice(i.will + m.horrorCheck) < 1)
+			if(i.RollDice(i.getWill() + m.horrorCheck) < 1)
 			{
 				m.horrify(i);
 				fightOver = i.sanity[0] <= 0;
@@ -52,7 +53,7 @@ namespace Arkham
 			Console.WriteLine("Combat Check");
 			Console.Write("  ");
 			bool fightOver;
-			if(i.RollDice(i.fight + m.fight) > m.toughness)
+			if(i.RollDice(i.getFight() + m.fight) > m.toughness)
 			{
 				System.Console.WriteLine("Investigator won!");
 				fightOver = true;
@@ -70,7 +71,7 @@ namespace Arkham
 			Console.WriteLine("Evade check");
 			Console.Write("  ");
 			bool fightOver;
-			if(i.RollDice(i.sneak + m.horrorCheck) < 1)
+			if(i.RollDice(i.getSneak() + m.horrorCheck) < 1)
 			{
 				m.attack(i);
 				fightOver = i.stamina[0] <= 0;

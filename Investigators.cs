@@ -5,7 +5,7 @@ namespace Arkham
 	internal class MichaelMcGlen:Investigator
 	{
 		internal MichaelMcGlen():
-			base("Michael McGlen", new int[2]{7, 7}, new int[2]{3, 3}, new int[2]{1, 1}, 2, 4, 3, 4, 0, 3)
+			base("Michael McGlen", new int[2]{7, 7}, new int[2]{3, 3}, new int[2]{1, 1}, new int[3]{1, 1, 1}, 2, 4, 3, 4, 0, 3)
 		{
 		}
 
