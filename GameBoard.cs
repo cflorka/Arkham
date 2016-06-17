@@ -9,16 +9,30 @@ namespace Arkham
 			Investigator mike = MichaelMcGlen.Instance;
 			Investigator kate = KateWinthrop.Instance;
 			Investigator bob = BobJenkins.Instance;
-			Location miskU = MiskatonicU.Instance;
-			Location admin = AdminBuilding.Instance;
-			Location.connect(admin, miskU);
-			Location library = Library.Instance;
-			Location.connect(library, miskU);
-			ScienceBuilding science = ScienceBuilding.Instance;
-			Location.connect(science, miskU);
+			//Uptown neighborhood
+			Street uptown = Uptown.Instance;
+			ArkhamLocation hospital = Hospital.Instance;
+			ArkhamLocation woods = Woods.Instance;
+			ArkhamLocation magicShop = MagicShop.Instance;
+			connectNeighborhood(uptown, hospital, woods, magicShop);
+			Console.Write("Connected to " + uptown.ToString() + ": ");
+			Console.WriteLine(string.Join(", ", uptown.ConnectedLocations));
+			//miskU neighborhood
+			Street miskU = MiskatonicU.Instance;
+			ArkhamLocation admin = AdminBuilding.Instance;
+			ArkhamLocation library = Library.Instance;
+			ArkhamLocation science = ScienceBuilding.Instance;
+			connectNeighborhood(miskU, admin, library, science);
 			Console.Write("Connected to " + miskU.ToString() + ": ");
 			Console.WriteLine(string.Join(", ", miskU.ConnectedLocations));
-			Console.WriteLine(science.ToString());
+		}
+
+		public static void connectNeighborhood(Street street, params ArkhamLocation[] arkLocs)
+		{
+			foreach(ArkhamLocation loc in arkLocs)
+			{
+				Location.connect(street, loc);
+			}
 		}
 	}
 }
