@@ -7,8 +7,11 @@ namespace Arkham
 		public static void Main()
 		{
 			//Investigator(name, currStam/total, currSanity/total, speed, sneak, fight, will, lore, luck)
-			Investigator mike = new MichaelMcGlen();
-			//mike.moveSlider(1, -1);
+			Investigator mike = MichaelMcGlen.Instance;
+			Investigator kate = KateWinthrop.Instance;
+			Investigator bob = BobJenkins.Instance;
+			bob.moveSlider(1,-1);
+			mike.moveSlider(1, -1);
 			//Monster(sneak, horrorCheck, sanityDam, fight, damage, toughness)
 			Monster bat = new Monster("bat", -1, -1, 3, -1, 2, 1);
 			initMonster(mike, bat);
@@ -18,7 +21,7 @@ namespace Arkham
 		{
 			bool avoidMon = false;
 			string response = "";
-			Console.WriteLine("You've encountered a " + m.name  + ". R)un or F)ight?");
+			Console.WriteLine(i.name + " has encountered a " + m.name  + ". R)un or F)ight?");
 			response = Console.ReadLine();
 			if(response.ToUpper().StartsWith("R"))
 			{

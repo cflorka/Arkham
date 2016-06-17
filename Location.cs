@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Arkham
 {
 	public class Location
@@ -9,10 +11,21 @@ namespace Arkham
 		internal Location(string name)
 		{
 			this.name = name;
+			investigators = new List<Investigator>();
+			monsters = new List<Monster>();
+			ConnectedLocations = new List<Location>();
 		}
-		internal void add(Investigator i){investigators.add(i);}
-		internal void add(Monster m){monsters.add(m);}
-		internal List<Location> connectedLocations{ get; set;}
+		internal void add(Investigator i){investigators.Add(i);}
+		internal void add(Monster m){monsters.Add(m);}
+		internal List<Location> ConnectedLocations{ get; set; }
+
+		internal static void connect(Location loc1, Location loc2)
+		{
+			loc1.ConnectedLocations.Add(loc2);
+			loc2.ConnectedLocations.Add(loc1);
+		}
+
+		internal new string ToString(){return name;}
 	}
 
 	public class ArkhamLocation:Location
@@ -25,16 +38,14 @@ namespace Arkham
 
 	public class CityLocation:ArkhamLocation
 	{
-		internal ArkhamLocation(string name):base(name){}
+		internal CityLocation(string name):base(name) {}
 
 		internal Street connectedStreet{ get; set; }
-		internal Gate openGate{ get; set; }
+		//internal Gate openGate{ get; set; }
 	}
 	
 	public class Street:ArkhamLocation
 	{
-		internal Street(string name, List<Location> connectedLocations,
-			Location blackArrow, Location whiteArrow)
-			:base(name, connectedLocations, blackArrow, whiteArrow)
+		internal Street(string name):base(name) {}
 	}
 }
