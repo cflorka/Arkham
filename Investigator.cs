@@ -10,7 +10,8 @@ namespace Arkham
 		private int speedSneakBar, fightWillBar, loreLuckBar;
 		internal int success = 5;
 
-		public Investigator(string name, int[] stamina, int[] sanity, int[] focus, int[] bars, int speed, int sneak, int fight, int will, int lore, int luck)
+		public Investigator(string name, int[] sanity, int[] stamina, int[] focus, int[] bars,
+			int speed, int sneak, int fight, int will, int lore, int luck)
 		{
 			this.name = name;
 			this.stamina = stamina;
@@ -22,9 +23,9 @@ namespace Arkham
 			this.will = will;
 			this.lore = lore;
 			this.luck = luck;
-			speedSneakBar = bars[0];
-			fightWillBar = bars[1];
-			loreLuckBar = bars[2];
+			this.speedSneakBar = bars[0];
+			this.fightWillBar = bars[1];
+			this.loreLuckBar = bars[2];
 		}
 		
 		public int getSpeed() {return speed + speedSneakBar;}
@@ -77,19 +78,43 @@ namespace Arkham
 		public virtual void takeDamage(int dam)
 		{
 			stamina[0] -= dam;
-			System.Console.WriteLine(name + " takes " + dam + " damage! " + name + " has " + healthString() + " stamina");
+			System.Console.WriteLine("  " + name + " takes " + dam + " damage! "
+				+ name + " has " + healthString() + " stamina");
 		}
 
 		public void loseSanity(int dam)
 		{
 			sanity[0] -= dam;
-			System.Console.WriteLine(name + " lost " + dam + " sanity! " + name + " has " + sanityString() + " sanity");
+			System.Console.WriteLine("  " + name + " lost " + dam + " sanity! "
+				+ name + " has " + sanityString() + " sanity");
 		}
 
 		public int RollDice(int numOfDice)
 		{
+			return numOfSuccesses(Dice.RollDice(numOfDice));
+		}
+
+		public int numOfSuccesses(int[] rolls)
+		{
 			Console.Write(name);
-			return Dice.RollDice(numOfDice, success);
+			int successes = 0;
+			if(rolls.Length == 0) Console.WriteLine(" auto-failed!");
+			else
+			{
+				Console.WriteLine(" rolled " + string.Join(", ", rolls) + ";");
+				foreach(int roll in rolls)
+				{
+					successes += numOfSuccesses(roll);
+				}
+			}
+			return successes;
+		}
+
+		public int numOfSuccesses(int roll)
+		{
+			int numOfSuccesses = 0;
+			if(roll >= success) ++numOfSuccesses;
+			return numOfSuccesses;
 		}
 
 		public void bless()
