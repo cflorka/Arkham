@@ -32,8 +32,8 @@ namespace Arkham
 	{
 		internal ArkhamLocation(string name):base(name){}
 
-		internal Location blackLocation{ get; set; }
-		internal Location whiteLocation{ get; set; }
+		internal Location BlackLocation{ get; set; }
+		internal Location WhiteLocation{ get; set; }
 	}
 
 	public class CityLocation:ArkhamLocation

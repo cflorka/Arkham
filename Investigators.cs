@@ -8,7 +8,8 @@ namespace Arkham
 
 		static MichaelMcGlen(){}
 		private MichaelMcGlen():
-			base("Michael McGlen", new int[2]{3, 3}, new int[2]{7, 7}, new int[2]{1, 1}, new int[3]{1, 1, 1}, 2, 4, 3, 4, 0, 3)
+			base("Michael McGlen", BoardHouse.Instance, new int[2]{3, 3}, new int[2]{7, 7},
+				new int[2]{1, 1}, new int[3]{1, 1, 1}, 2, 4, 3, 4, 0, 3)
 		{
 			//$8
 			//Dynamite (common), Tommy Gun(common)
@@ -31,8 +32,8 @@ namespace Arkham
 
 		static BobJenkins(){}
 		private BobJenkins():
-			base("Bob Jenkins", new int[2]{4, 4}, new int[2]{6, 6}, new int[2]{1, 1},
-				new int[3]{1, 1, 1}, 2, 3, 1, 6, 0, 4)
+			base("Bob Jenkins", GenStore.Instance, new int[2]{4, 4}, new int[2]{6, 6},
+				new int[2]{1, 1}, new int[3]{1, 1, 1}, 2, 3, 1, 6, 0, 4)
 		{
 			//$9
 			//drawCommon(2)
@@ -52,8 +53,8 @@ namespace Arkham
 
 		static KateWinthrop(){}
 		private KateWinthrop()
-			:base("Kate Winthrop", new int[2]{6, 6}, new int[2]{4, 4}, new int[2]{1, 1},
-				new int[3]{1, 1, 1}, 1, 5, 1, 3, 2, 4)
+			:base("Kate Winthrop", ScienceBuilding.Instance, new int[2]{6, 6}, new int[2]{4, 4},
+				new int[2]{1, 1}, new int[3]{1, 1, 1}, 1, 5, 1, 3, 2, 4)
 		{
 			//$7
 			//2 Clue Tokens

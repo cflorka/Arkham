@@ -5,15 +5,18 @@ namespace Arkham
 	public class Investigator
 	{
 		internal String name;
+		internal Location location;
 		internal int[] stamina, sanity, focus;
 		private int speed, sneak, fight, will, lore, luck;
 		private int speedSneakBar, fightWillBar, loreLuckBar;
 		internal int success = 5;
 
-		public Investigator(string name, int[] sanity, int[] stamina, int[] focus, int[] bars,
-			int speed, int sneak, int fight, int will, int lore, int luck)
+		public Investigator(string name, Location location, int[] sanity, int[] stamina,
+			int[] focus, int[] bars, int speed, int sneak, int fight, int will, int lore, int luck)
 		{
 			this.name = name;
+			this.location = location;
+			location.add(this);
 			this.stamina = stamina;
 			this.sanity = sanity;
 			this.focus = focus;
