@@ -8,8 +8,8 @@ namespace Arkham
 
 		static MichaelMcGlen(){}
 		private MichaelMcGlen():
-			base("Michael McGlen", BoardHouse.Instance, new int[2]{3, 3}, new int[2]{7, 7},
-				new int[2]{1, 1}, new int[3]{1, 1, 1}, 2, 4, 3, 4, 0, 3)
+			base("Michael McGlen", BoardHouse.Instance, 3, 7, 1,
+				new int[3]{1, 1, 1}, 2, 4, 3, 4, 0, 3)
 		{
 			//$8
 			//Dynamite (common), Tommy Gun(common)
@@ -18,9 +18,9 @@ namespace Arkham
 			//ToDo: StartingLocation: Ma's Boarding Home
 		}
 
-		public static MichaelMcGlen Instance{ get { return instance; } }
+		internal static MichaelMcGlen Instance{ get { return instance; } }
 
-		public override void takeDamage(int dam)
+		internal override void takeDamage(int dam)
 		{
 			base.takeDamage(Math.Max(dam - 1, 0));
 		}
@@ -32,8 +32,8 @@ namespace Arkham
 
 		static BobJenkins(){}
 		private BobJenkins():
-			base("Bob Jenkins", GenStore.Instance, new int[2]{4, 4}, new int[2]{6, 6},
-				new int[2]{1, 1}, new int[3]{1, 1, 1}, 2, 3, 1, 6, 0, 4)
+			base("Bob Jenkins", GenStore.Instance, 4, 6, 1, new int[3]{1, 1, 1},
+				2, 3, 1, 6, 0, 4)
 		{
 			//$9
 			//drawCommon(2)
@@ -42,19 +42,19 @@ namespace Arkham
 			//ToDo: Set starting location: General Store
 		}
 
-		public static BobJenkins Instance{get{return instance;}}
+		internal static BobJenkins Instance{get{return instance;}}
 
 		//ToDo: Power (common draw + 1, discard one)
 	}
 	
-	public sealed class KateWinthrop:Investigator
+	internal sealed class KateWinthrop:Investigator
 	{
 		private static readonly KateWinthrop instance = new KateWinthrop();
 
 		static KateWinthrop(){}
 		private KateWinthrop()
-			:base("Kate Winthrop", ScienceBuilding.Instance, new int[2]{6, 6}, new int[2]{4, 4},
-				new int[2]{1, 1}, new int[3]{1, 1, 1}, 1, 5, 1, 3, 2, 4)
+			:base("Kate Winthrop", ScienceBuilding.Instance, 6, 4, 1,
+				new int[3]{1, 1, 1}, 1, 5, 1, 3, 2, 4)
 		{
 			//$7
 			//2 Clue Tokens
@@ -66,7 +66,7 @@ namespace Arkham
 		
 		//ToDo: Power (no monsters or gates can appear in same location)
 
-		public static KateWinthrop Instance { get { return instance; } }
+		internal static KateWinthrop Instance { get { return instance; } }
 
 	} 
 }

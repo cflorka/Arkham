@@ -1,22 +1,20 @@
+using System.Collections.Generic;
+
 namespace Arkham
 {
-	public class Gate
+	internal class Gate
 	{
-		OtherWorld otherworld;
+		OtherWorldLocation OtherWorld;
 		int difficulty;
 		Shape shape;
 		
-		public Gate(OtherWorld otherworld, int difficulty, Shape shape)
+		internal Gate(OtherWorldLocation otherWorld, int difficulty, Shape shape)
 		{
-			this.otherworld = otherworld;
+			OtherWorld = otherWorld;
 			this.difficulty = difficulty;
 			this.shape = shape;
 		}
-	}
-	
-	public class OtherWorld : Location
-	{
-		List<Gate> openGates;
-		List<Investigators> thoseInFirstLocation, thoseInSecondLocation;
+		
+		internal ArkhamLocation Location{ get; set; }
 	}
 }

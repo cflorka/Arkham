@@ -1,11 +1,11 @@
 namespace Arkham
 {
-	public class Monster
+	internal class Monster
 	{
 		internal string name;
 		internal int sneak, horrorCheck, sanityDam, fight, damage, toughness;
 		
-		public Monster(string name, int sneak, int horrorCheck, int sanityDam, int fight, int damage, int toughness)
+		internal Monster(string name, int sneak, int horrorCheck, int sanityDam, int fight, int damage, int toughness)
 		{
 			this.name = name;
 			this.sneak = sneak;
@@ -16,12 +16,12 @@ namespace Arkham
 			this.toughness = toughness;
 		}
 
-		public void attack(Investigator i)
+		internal void attack(Investigator i)
 		{
 			i.takeDamage(damage);
 		}
 
-		public void horrify(Investigator i)
+		internal void horrify(Investigator i)
 		{
 			i.loseSanity(sanityDam);
 		}

@@ -2,9 +2,9 @@ using System;
 
 namespace Arkham
 {
-	public class Encounter
+	internal class Encounter
 	{
-		public static void Main()
+		internal static void Main()
 		{
 			//Investigator(name, currStam/total, currSanity/total, speed, sneak, fight, will, lore, luck)
 			Investigator mike = MichaelMcGlen.Instance;
@@ -12,12 +12,12 @@ namespace Arkham
 			Investigator bob = BobJenkins.Instance;
 			bob.moveSlider(1,-1);
 			mike.moveSlider(1, -1);
-			//Monster(sneak, horrorCheck, sanityDam, fight, damage, toughness)
+			//Monster(sneak, horrorCheck, internal, fight, damage, toughness)
 			Monster bat = new Monster("bat", -1, -1, 3, -1, 2, 1);
 			initMonster(mike, bat);
 		}
 
-		public static void initMonster(Investigator i, Monster m)
+		internal static void initMonster(Investigator i, Monster m)
 		{
 			bool avoidMon = false;
 			string response = "";
@@ -87,7 +87,7 @@ namespace Arkham
 			return fightOver;
 		}
 
-		public static void fightMon(Investigator i, Monster m)
+		internal static void fightMon(Investigator i, Monster m)
 		{
 			bool fightOver = false;
 			fightOver = horrorCheck(i, m);

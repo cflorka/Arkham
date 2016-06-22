@@ -2,24 +2,25 @@ using System;
 
 namespace Arkham
 {
-	public class Investigator
+	internal class Investigator
 	{
 		internal String name;
 		internal Location location;
 		internal int[] stamina, sanity, focus;
-		private int speed, sneak, fight, will, lore, luck;
+		private int speed, sneak, fight, will, lore, luck, movement;
 		private int speedSneakBar, fightWillBar, loreLuckBar;
 		internal int success = 5;
 
-		public Investigator(string name, Location location, int[] sanity, int[] stamina,
-			int[] focus, int[] bars, int speed, int sneak, int fight, int will, int lore, int luck)
+		internal Investigator(string name, Location location,
+			int maxSanity, int maxStamina, int maxFocus, int[] bars,
+			int speed, int sneak, int fight, int will, int lore, int luck)
 		{
 			this.name = name;
 			this.location = location;
-			location.add(this);
-			this.stamina = stamina;
-			this.sanity = sanity;
-			this.focus = focus;
+			location.Add(this);
+			stamina = new int[2]{maxStamina, maxStamina};
+			sanity = new int[2]{maxSanity, maxSanity};
+			focus = new int[2]{maxFocus, maxFocus};
 			this.speed = speed;
 			this.sneak = sneak;
 			this.fight = fight;
@@ -31,73 +32,73 @@ namespace Arkham
 			this.loreLuckBar = bars[2];
 		}
 		
-		public int getSpeed() {return speed + speedSneakBar;}
-		public int getSneak() {return sneak - speedSneakBar;}
-		public int getFight() {return fight + fightWillBar;}
-		public int getWill() {return will - fightWillBar;}
-		public int getLore() {return lore + loreLuckBar;}
-		public int getLuck() {return luck - loreLuckBar;}
+		internal int getSpeed() {return speed + speedSneakBar;}
+		internal int getSneak() {return sneak - speedSneakBar;}
+		internal int getFight() {return fight + fightWillBar;}
+		internal int getWill() {return will - fightWillBar;}
+		internal int getLore() {return lore + loreLuckBar;}
+		internal int getLuck() {return luck - loreLuckBar;}
 
-		public int currentHealth()
+		internal int currentHealth()
 		{
 			return stamina[0];
 		}
 
-		public int totalHealth()
+		internal int totalHealth()
 		{
 			return stamina[1];
 		}
 
-		public String healthString()
+		internal String healthString()
 		{
 			return "" + currentHealth() + "/" + totalHealth();
 		}
 
-		public String sanityString()
+		internal String sanityString()
 		{
 			return "" + sanity[0] + "/" + sanity[1];
 		}
 
-		public void resolve()
+		internal void resolve()
 		{
 			if (sanity[0] <= 0 && stamina[0] <= 0)
 			{
-				Console.WriteLine(name + " has been DEVOURED!!!"); //add devoured logic
+				Console.WriteLine(name + " has been DEVOURED!!!"); //TODO: add devoured logic
 			}
 			else if (stamina[0] <= 0)
 			{
 				Console.WriteLine(name + " fainted!");
 				stamina[0] = 1;
-				//change location to hospital
+				//TODO: change location to hospital
 			}
 			else if (sanity[0] <= 0)
 			{
 				Console.WriteLine(name + " went insane!");
 				sanity[0] = 1;
-				//change location to asylum 
+				//TODO: change location to asylum 
 			}
 		}
 
-		public virtual void takeDamage(int dam)
+		internal virtual void takeDamage(int dam)
 		{
 			stamina[0] -= dam;
 			System.Console.WriteLine("  " + name + " takes " + dam + " damage! "
 				+ name + " has " + healthString() + " stamina");
 		}
 
-		public void loseSanity(int dam)
+		internal void loseSanity(int dam)
 		{
 			sanity[0] -= dam;
 			System.Console.WriteLine("  " + name + " lost " + dam + " sanity! "
 				+ name + " has " + sanityString() + " sanity");
 		}
 
-		public int RollDice(int numOfDice)
+		internal int RollDice(int numOfDice)
 		{
 			return numOfSuccesses(Dice.RollDice(numOfDice));
 		}
 
-		public int numOfSuccesses(int[] rolls)
+		internal int numOfSuccesses(int[] rolls)
 		{
 			Console.Write(name);
 			int successes = 0;
@@ -113,24 +114,24 @@ namespace Arkham
 			return successes;
 		}
 
-		public int numOfSuccesses(int roll)
+		internal int numOfSuccesses(int roll)
 		{
 			int numOfSuccesses = 0;
 			if(roll >= success) ++numOfSuccesses;
 			return numOfSuccesses;
 		}
 
-		public void bless()
+		internal void bless()
 		{
 			success = Math.Max(4, success - 1);
 		}
 
-		public void curse()
+		internal void curse()
 		{
 			success = Math.Min(6, success + 1);
 		}
 
-		public void moveSlider(int bar, int amount) //bar 1 = speed/sneak, 2 = fight/will, 3 = lore/luck
+		internal void moveSlider(int bar, int amount) //bar 1 = speed/sneak, 2 = fight/will, 3 = lore/luck
 		{
 			if (bar < 1 || bar > 3)
 			{
@@ -147,7 +148,8 @@ namespace Arkham
 				{
 					case 1:
 						newPos = speedSneakBar + amount;
-						if(newPos > 3 || newPos < 0) Console.WriteLine("Slider can't go that far");
+						if(newPos > 3 || newPos < 0)
+							Console.WriteLine("Slider can't go that far");
 						else
 						{
 							speedSneakBar = newPos;
@@ -156,7 +158,8 @@ namespace Arkham
 						break;
 					case 2:
 						newPos = fightWillBar + amount;
-						if(newPos > 3 || newPos < 0) Console.WriteLine("Slider can't go that far");
+						if(newPos > 3 || newPos < 0)
+							Console.WriteLine("Slider can't go that far");
 						else
 						{
 							fightWillBar = newPos;
@@ -165,7 +168,8 @@ namespace Arkham
 						break;
 					case 3:
 						newPos = loreLuckBar + amount;
-						if(newPos > 3 || newPos < 0) Console.WriteLine("Slider can't go that far");
+						if(newPos > 3 || newPos < 0)
+							Console.WriteLine("Slider can't go that far");
 						else
 						{
 							loreLuckBar = newPos;
@@ -176,10 +180,28 @@ namespace Arkham
 			}
 		}
 
-		public void newTurn()
+		internal void moveTo(Location destination)
 		{
+			if(location.ConnectedLocations.Contains(destination))
+			{
+				if(movement > 0) //TODO: for add recursivity: amount of movement required
+				{
+					--movement;
+					location.Remove(this);
+					location = destination;
+					location.Add(this);
+				}
+				else Console.Write("Not enough movement points");
+			}
+			else Console.Write("Location not connected"); //TODO: add recursivity
+		}
+
+		internal void newTurn()
+		{
+			//TODO: unexhaust cards
 			focus[0] = focus[1];
-			//unexhaust cards
+			//TODO: move focus bar
+			movement = getSpeed();
 		}
 	}
 }
