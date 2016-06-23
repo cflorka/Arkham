@@ -9,6 +9,18 @@ namespace Arkham
 		List<Monster> monsOnBoard, sky, outskirts;
 		List<Investigator> investigators = new List<Investigator>();
 		
+		public static void Main()
+		{
+			GameBoard gb = new GameBoard();
+			Investigator player1 = gb.investigators[0];
+			//player1.moveTo(Southside.Instance);
+			//player1.moveTo(Uptown.Instance);
+			//player1.moveTo(MiskatonicU.Instance);
+			player1.newTurn();
+			//player1.moveTo(MercDistrict.Instance);
+			//player1.moveTo(Northside.Instance);
+			player1.moveTo(Newspaper.Instance);
+		}
 		
 		internal GameBoard()
 		{
@@ -22,6 +34,7 @@ namespace Arkham
 			investigators.Add(MichaelMcGlen.Instance);
 			investigators.Add(BobJenkins.Instance);
 			investigators.Add(KateWinthrop.Instance);
+			foreach(Investigator i in investigators) i.Board = this;
 		}
 
 		internal void InitLocations()
@@ -89,6 +102,40 @@ namespace Arkham
 			Location.Connect(blackStreet, whiteStreet);
 			blackStreet.WhiteLocation = whiteStreet;
 			whiteStreet.BlackLocation = blackStreet;
+		}
+		
+		internal int DistanceBetween(Location start, Location end)
+		{
+			int distance = 1;
+			if(start.Equals(end)) distance = 0;
+			else if(start is OtherWorldLocation || end is OtherWorldLocation)
+				distance = -1;
+			else if(start.ConnectedLocations.Contains(end)) distance = 1;
+			else
+			{
+				List<Street> checkedStreets = new List<Street>();
+				List<Street> nextStreetsToCheck = new List<Street>();
+				HashSet<Street> streetsToCheck = new HashSet<Street>(((ArkhamLocation)start).ConnectedStreets());
+				bool found = false;
+				while(!found)
+				{
+					Console.WriteLine(string.Join(", ", streetsToCheck));
+					++distance;
+					foreach(Street s in streetsToCheck)
+					{
+						if(s.ConnectedLocations.Contains(end))
+						{
+							found = true;
+							break;
+						}
+						nextStreetsToCheck.AddRange(s.ConnectedStreets());
+					}
+					checkedStreets.AddRange(streetsToCheck);
+					nextStreetsToCheck.RemoveAll(loc => checkedStreets.Contains(loc));
+					streetsToCheck = new HashSet<Street>(nextStreetsToCheck);
+				}
+			}
+			return distance;
 		}
 	}
 }

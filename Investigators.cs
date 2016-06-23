@@ -9,7 +9,7 @@ namespace Arkham
 		static MichaelMcGlen(){}
 		private MichaelMcGlen():
 			base("Michael McGlen", BoardHouse.Instance, 3, 7, 1,
-				new int[3]{1, 1, 1}, 2, 4, 3, 4, 0, 3)
+				new int[3]{3, 1, 1}, 2, 4, 3, 4, 0, 3)
 		{
 			//$8
 			//Dynamite (common), Tommy Gun(common)

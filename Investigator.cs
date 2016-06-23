@@ -30,6 +30,7 @@ namespace Arkham
 			this.speedSneakBar = bars[0];
 			this.fightWillBar = bars[1];
 			this.loreLuckBar = bars[2];
+			movement = getSpeed();
 		}
 		
 		internal int getSpeed() {return speed + speedSneakBar;}
@@ -58,6 +59,8 @@ namespace Arkham
 		{
 			return "" + sanity[0] + "/" + sanity[1];
 		}
+		
+		internal GameBoard Board{get;set;}
 
 		internal void resolve()
 		{
@@ -182,18 +185,21 @@ namespace Arkham
 
 		internal void moveTo(Location destination)
 		{
-			if(location.ConnectedLocations.Contains(destination))
+			int distance = Board.DistanceBetween(location, destination);
+			if(distance > 0)
 			{
-				if(movement > 0) //TODO: for add recursivity: amount of movement required
+				if(movement >= distance)
 				{
-					--movement;
+					Console.WriteLine(name + " moved from " + location + " to " + destination + " (" + distance + " spots away.)");
+					movement -= distance;
 					location.Remove(this);
 					location = destination;
 					location.Add(this);
 				}
-				else Console.Write("Not enough movement points");
+				else Console.WriteLine(name + " has " + movement + " movement points, and "
+					+ destination + " requires " + distance);
 			}
-			else Console.Write("Location not connected"); //TODO: add recursivity
+			else Console.WriteLine("Location not connected, is " + distance + " spots away"); //TODO: add recursivity
 		}
 
 		internal void newTurn()

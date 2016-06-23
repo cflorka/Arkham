@@ -4,7 +4,7 @@ namespace Arkham
 {
 	internal class Encounter
 	{
-		internal static void Main()
+		internal static void Mainx()
 		{
 			//Investigator(name, currStam/total, currSanity/total, speed, sneak, fight, will, lore, luck)
 			Investigator mike = MichaelMcGlen.Instance;

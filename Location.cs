@@ -36,6 +36,16 @@ namespace Arkham
 
 		internal Location BlackLocation{ get; set; }
 		internal Location WhiteLocation{ get; set; }
+
+		internal List<Street> ConnectedStreets()
+		{
+			List<Street> connectedStreets = new List<Street>();
+			foreach(Location l in ConnectedLocations)
+			{
+				if(l is Street) connectedStreets.Add((Street)l);
+			}
+			return connectedStreets;
+		}
 	}
 	internal class CityLocation:ArkhamLocation
 	{
@@ -75,6 +85,5 @@ namespace Arkham
 			OpenGateLocations.Remove(gate.Location);
 			second.ConnectedLocations.Remove(gate.Location);
 		}
-
 	}
 }
