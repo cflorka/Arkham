@@ -4,17 +4,19 @@ namespace Arkham
 {
 	internal class Gate
 	{
-		OtherWorldLocation OtherWorld;
-		int difficulty;
-		Shape shape;
+		private OtherWorldLocation otherWorld;
+		private int skillMod;
+		private Shape shape;
 		
-		internal Gate(OtherWorldLocation otherWorld, int difficulty, Shape shape)
+		internal Gate(OtherWorldLocation otherWorld, int skillMod, Shape shape)
 		{
-			OtherWorld = otherWorld;
-			this.difficulty = difficulty;
+			this.otherWorld = otherWorld;
+			this.skillMod = skillMod;
 			this.shape = shape;
 		}
 		
 		internal ArkhamLocation Location{ get; set; }
+		internal OtherWorldLocation OtherWorld{ get {return otherWorld;} }
+		internal Shape Shape{ get {return shape;} }
 	}
 }

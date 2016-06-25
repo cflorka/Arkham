@@ -21,6 +21,9 @@ namespace Arkham
 		internal void Remove(Monster m){monsters.Remove(m);}
 		internal List<Location> ConnectedLocations{ get; set; }
 
+		internal List<Investigator> Investigators{ get {return investigators;}}
+		internal bool HasInvestigators(){return Investigators.Count > 0;}
+
 		internal static void Connect(Location loc1, Location loc2)
 		{
 			loc1.ConnectedLocations.Add(loc2);
@@ -34,8 +37,8 @@ namespace Arkham
 	{
 		internal ArkhamLocation(string name):base(name){}
 
-		internal Location BlackLocation{ get; set; }
-		internal Location WhiteLocation{ get; set; }
+		internal ArkhamLocation BlackLocation{ get; set; }
+		internal ArkhamLocation WhiteLocation{ get; set; }
 
 		internal List<Street> ConnectedStreets()
 		{
@@ -52,7 +55,7 @@ namespace Arkham
 		internal CityLocation(string name):base(name) {}
 
 		internal Street ConnectedStreet{ get; set; }
-		//internal Gate openGate{ get; set; }
+		internal Gate OpenGate{ get; set; }
 	}
 	internal class Street:ArkhamLocation
 	{
@@ -73,6 +76,7 @@ namespace Arkham
 				first.ConnectedLocations.Add(second);
 			}
 		}
+		internal OtherWorldLocation(string name):this(name, true){}
 
 		internal void OpenGate(Gate gate)
 		{

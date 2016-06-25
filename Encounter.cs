@@ -13,8 +13,10 @@ namespace Arkham
 			bob.moveSlider(1,-1);
 			mike.moveSlider(1, -1);
 			//Monster(sneak, horrorCheck, internal, fight, damage, toughness)
-			Monster bat = new Monster("bat", -1, -1, 3, -1, 2, 1);
+			Monster bat = new Monster("bat", Shape.Circle, MovementType.Normal, -1, -1, 3, -1, 2, 1);
 			initMonster(mike, bat);
+			//test closegate
+			
 		}
 
 		internal static void initMonster(Investigator i, Monster m)

@@ -6,24 +6,31 @@ namespace Arkham
 	internal class GameBoard
 	{
 		int terrorTrack;
-		List<Monster> monsOnBoard, sky, outskirts;
+		List<Monster> monsOnBoard;
+		List<Gate> openGates;
 		List<Investigator> investigators = new List<Investigator>();
-		
+		//TODO: Decks: MonsterCup, Mythos, Common, Unique, Spell, Skill, Encounter Decks, etc.
+
 		public static void Main()
 		{
 			GameBoard gb = new GameBoard();
 			Investigator player1 = gb.investigators[0];
 			//player1.moveTo(Southside.Instance);
 			//player1.moveTo(Uptown.Instance);
-			//player1.moveTo(MiskatonicU.Instance);
+			player1.moveTo(MiskatonicU.Instance);
 			player1.newTurn();
 			//player1.moveTo(MercDistrict.Instance);
 			//player1.moveTo(Northside.Instance);
 			player1.moveTo(Newspaper.Instance);
+			gb.openGate(Newspaper.Instance);
+			gb.openGate(Newspaper.Instance);
 		}
-		
+
 		internal GameBoard()
 		{
+			terrorTrack = 0;
+			monsOnBoard = new List<Monster>();
+			openGates = new List<Gate>();
 			InitLocations();
 			InitInvestigators();
 		}
@@ -89,6 +96,14 @@ namespace Arkham
 			Location.Connect(miskU, frenchHill);
 		}
 
+		internal void Remove(Monster m){monsOnBoard.Remove(m);}
+		internal void Add(Monster m, ArkhamLocation loc)
+		{
+			monsOnBoard.Add(m);
+			loc.Add(m);
+			m.Location = loc;
+		}
+
 		internal static void connectNeighborhood(Street street, params ArkhamLocation[] arkLocs)
 		{
 			foreach(ArkhamLocation loc in arkLocs)
@@ -103,7 +118,7 @@ namespace Arkham
 			blackStreet.WhiteLocation = whiteStreet;
 			whiteStreet.BlackLocation = blackStreet;
 		}
-		
+
 		internal int DistanceBetween(Location start, Location end)
 		{
 			int distance = 1;
@@ -119,7 +134,6 @@ namespace Arkham
 				bool found = false;
 				while(!found)
 				{
-					Console.WriteLine(string.Join(", ", streetsToCheck));
 					++distance;
 					foreach(Street s in streetsToCheck)
 					{
@@ -136,6 +150,83 @@ namespace Arkham
 				}
 			}
 			return distance;
+		}
+
+		internal void openGate(CityLocation loc)
+		{
+			if(loc.OpenGate == null)
+			{
+				Gate openingGate = new Gate(new OtherWorldLocation("Other World"), 1, Shape.Circle); //TODO: Draw gate from deck
+				loc.OpenGate = openingGate; //TODO: Increase Doom track
+				openGates.Add(openingGate);
+				openingGate.Location = loc;
+				Console.WriteLine("Gate to " + openingGate.OtherWorld + " opened.");
+				if(loc.HasInvestigators())
+				{
+					List<Investigator> investigatorsInLoc = new List<Investigator>(loc.Investigators);
+					foreach(Investigator i in investigatorsInLoc)
+					{
+						i.ChangeLocationTo(openingGate.OtherWorld);
+						//TODO: Make investigator delayed
+					}
+				}
+			}
+			else Console.WriteLine("MONSTER SURGE!!!"); //TODO: Monster surge logic
+		}
+
+		internal void CloseGate(CityLocation loc)
+		{
+			Gate closingGate = loc.OpenGate; 
+			loc.OpenGate = null;
+			Shape shape = closingGate.Shape;
+			openGates.Remove(closingGate);
+			if(openGates.Count == 0)
+			{
+				//TODO: Add check for game end (no gates, and enough gate trophies)
+			}
+			BanishMonsters(shape);
+		}
+
+		private void BanishMonsters(Shape shape)
+		{
+			List<Monster> monsterList = GetMonstersWithShape(shape);
+			Location loc;
+			foreach(Monster m in monsterList)
+			{
+				loc = m.Location;
+				loc.Remove(m);
+				this.Remove(m);
+				m.Location = null;
+				addToCup(m);
+			}
+		}
+
+		private List<Monster> GetMonstersWithShape(Shape shape)
+		{
+			List<Monster> monsterList = new List<Monster>();
+			foreach(Monster m in monsOnBoard)
+			{
+				if(m.Shape == shape)
+				{
+					monsterList.Add(m);
+				}
+			}
+			return monsterList;
+		}
+
+		private void MoveOnWhite(Shape shape)
+		{
+			List<Monster> monstersMoving = GetMonstersWithShape(shape);
+			foreach(Monster m in monstersMoving)
+			{
+				//TODO: Handle special movement types
+				m.Move(m.Location.WhiteLocation);
+			}
+		}
+
+		internal void addToCup(Monster mon)
+		{
+			//TODO: add monster back to cup deck and shuffle
 		}
 	}
 }

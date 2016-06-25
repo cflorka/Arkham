@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Arkham
 {
@@ -10,6 +11,8 @@ namespace Arkham
 		private int speed, sneak, fight, will, lore, luck, movement;
 		private int speedSneakBar, fightWillBar, loreLuckBar;
 		internal int success = 5;
+		internal List<Gate> gateTrophies;
+		internal List<Monster> monsterTrophies;
 
 		internal Investigator(string name, Location location,
 			int maxSanity, int maxStamina, int maxFocus, int[] bars,
@@ -31,6 +34,8 @@ namespace Arkham
 			this.fightWillBar = bars[1];
 			this.loreLuckBar = bars[2];
 			movement = getSpeed();
+			gateTrophies = new List<Gate>();
+			monsterTrophies = new List<Monster>();
 		}
 		
 		internal int getSpeed() {return speed + speedSneakBar;}
@@ -72,13 +77,13 @@ namespace Arkham
 			{
 				Console.WriteLine(name + " fainted!");
 				stamina[0] = 1;
-				//TODO: change location to hospital
+				ChangeLocationTo(Hospital.Instance);
 			}
 			else if (sanity[0] <= 0)
 			{
 				Console.WriteLine(name + " went insane!");
 				sanity[0] = 1;
-				//TODO: change location to asylum 
+				ChangeLocationTo(Asylum.Instance);
 			}
 		}
 
@@ -190,11 +195,9 @@ namespace Arkham
 			{
 				if(movement >= distance)
 				{
-					Console.WriteLine(name + " moved from " + location + " to " + destination + " (" + distance + " spots away.)");
 					movement -= distance;
-					location.Remove(this);
-					location = destination;
-					location.Add(this);
+					ChangeLocationTo(destination);
+					Console.WriteLine(name + " has " + movement + " movement left");
 				}
 				else Console.WriteLine(name + " has " + movement + " movement points, and "
 					+ destination + " requires " + distance);
@@ -202,12 +205,28 @@ namespace Arkham
 			else Console.WriteLine("Location not connected, is " + distance + " spots away"); //TODO: add recursivity
 		}
 
+		internal void ChangeLocationTo(Location destination)
+		{
+			Console.WriteLine(name + " moved from " + location + " to " + destination);
+			location.Remove(this);
+			location = destination;
+			destination.Add(this);
+		}
+
 		internal void newTurn()
 		{
 			//TODO: unexhaust cards
 			focus[0] = focus[1];
 			//TODO: move focus bar
+			//TODO: powers at beginning of turn
 			movement = getSpeed();
+		}
+
+		internal void CloseGate(CityLocation loc)
+		{
+			Gate gate = loc.OpenGate;
+			gateTrophies.Add(gate);
+			Board.CloseGate(loc);
 		}
 	}
 }
