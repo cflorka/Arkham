@@ -2,11 +2,13 @@ using System.Collections.Generic;
 
 namespace Arkham
 {
+	enum ArrowColor{White, Black};
+
 	internal class Location
 	{
 		string name;
 		List<Investigator> investigators;
-		List<Monster> monsters; 
+		List<Monster> monsters;
 		//ToDo clueTokens/events
 		internal Location(string name)
 		{
@@ -35,10 +37,23 @@ namespace Arkham
 
 	internal class ArkhamLocation:Location
 	{
-		internal ArkhamLocation(string name):base(name){}
+		private Dictionary<ArrowColor, ArkhamLocation> arrowLocations;
+		internal ArkhamLocation(string name):base(name)
+		{
+			arrowLocations = new Dictionary<ArrowColor, ArkhamLocation>();
+		}
 
-		internal ArkhamLocation BlackLocation{ get; set; }
-		internal ArkhamLocation WhiteLocation{ get; set; }
+		internal ArkhamLocation Location{ get; set; }
+
+		internal void SetArrowLocation(ArrowColor color, ArkhamLocation loc)
+		{
+			arrowLocations.Add(color, loc);
+		}
+
+		internal ArkhamLocation GetArrowLocation(ArrowColor color)
+		{
+			return arrowLocations[color];
+		}
 
 		internal List<Street> ConnectedStreets()
 		{

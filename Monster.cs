@@ -6,9 +6,9 @@ namespace Arkham
 	{
 		internal string name;
 		internal int sneak, horrorCheck, sanityDam, fight, damage, toughness;
-		internal Shape shape;
-		internal MovementType moveType;
-		
+		private Shape shape;
+		private MovementType moveType;
+
 		internal Monster(string name, Shape shape, MovementType moveType, int sneak, int horrorCheck, int sanityDam,
 		int fight, int damage, int toughness)
 		{
@@ -25,6 +25,7 @@ namespace Arkham
 
 		internal Shape Shape{get{return shape;}}
 		internal ArkhamLocation Location{get; set;}
+		internal MovementType MoveType{get{return moveType;}}
 
 		internal void attack(Investigator i)
 		{
@@ -40,6 +41,11 @@ namespace Arkham
 		{
 			Location.Remove(this);
 			Location = loc;
+		}
+
+		internal void Move(ArrowColor color)
+		{
+			Move(Location.GetArrowLocation(color));
 		}
 	}
 }

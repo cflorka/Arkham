@@ -5,7 +5,7 @@ namespace Arkham
 {
 	internal class GameBoard
 	{
-		int terrorTrack;
+		int terrorTrackLvl;
 		List<Monster> monsOnBoard;
 		List<Gate> openGates;
 		List<Investigator> investigators = new List<Investigator>();
@@ -15,20 +15,22 @@ namespace Arkham
 		{
 			GameBoard gb = new GameBoard();
 			Investigator player1 = gb.investigators[0];
-			//player1.moveTo(Southside.Instance);
-			//player1.moveTo(Uptown.Instance);
-			player1.moveTo(MiskatonicU.Instance);
+			//player1.MoveTo(Southside.Instance);
+			//player1.MoveTo(Uptown.Instance);
+			player1.MoveTo(MiskatonicU.Instance);
 			player1.newTurn();
-			//player1.moveTo(MercDistrict.Instance);
-			//player1.moveTo(Northside.Instance);
-			player1.moveTo(Newspaper.Instance);
+			//player1.MoveTo(MercDistrict.Instance);
+			//player1.MoveTo(Northside.Instance);
+			player1.MoveTo(Newspaper.Instance);
 			gb.openGate(Newspaper.Instance);
 			gb.openGate(Newspaper.Instance);
+			player1.ChangeLocationTo(Newspaper.Instance);
+			player1.CloseGate();
 		}
 
 		internal GameBoard()
 		{
-			terrorTrack = 0;
+			terrorTrackLvl = 0;
 			monsOnBoard = new List<Monster>();
 			openGates = new List<Gate>();
 			InitLocations();
@@ -109,14 +111,15 @@ namespace Arkham
 			foreach(ArkhamLocation loc in arkLocs)
 			{
 				Location.Connect(street, loc);
-				loc.BlackLocation = loc.WhiteLocation = street;
+				loc.SetArrowLocation(ArrowColor.Black, loc);
+				loc.SetArrowLocation(ArrowColor.White, loc);
 			}
 		}
 		internal static void connectBWStreets(Street blackStreet, Street whiteStreet)
 		{
 			Location.Connect(blackStreet, whiteStreet);
-			blackStreet.WhiteLocation = whiteStreet;
-			whiteStreet.BlackLocation = blackStreet;
+			blackStreet.SetArrowLocation(ArrowColor.White, whiteStreet);
+			whiteStreet.SetArrowLocation(ArrowColor.Black, blackStreet);
 		}
 
 		internal int DistanceBetween(Location start, Location end)
@@ -214,19 +217,28 @@ namespace Arkham
 			return monsterList;
 		}
 
-		private void MoveOnWhite(Shape shape)
+		private void MoveOn(Shape shape, ArrowColor color)
 		{
 			List<Monster> monstersMoving = GetMonstersWithShape(shape);
 			foreach(Monster m in monstersMoving)
 			{
+				m.Move(color);
 				//TODO: Handle special movement types
-				m.Move(m.Location.WhiteLocation);
 			}
 		}
 
 		internal void addToCup(Monster mon)
 		{
 			//TODO: add monster back to cup deck and shuffle
+		}
+
+		internal void IncreaseTerror()
+		{
+			IncreaseTerror(1);
+		}
+		internal void IncreaseTerror(int increase)
+		{
+			terrorTrackLvl += increase;
 		}
 	}
 }

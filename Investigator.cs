@@ -188,10 +188,10 @@ namespace Arkham
 			}
 		}
 
-		internal void moveTo(Location destination)
+		internal void MoveTo(Location destination)
 		{
 			int distance = Board.DistanceBetween(location, destination);
-			if(distance > 0)
+			if(distance >= 0)
 			{
 				if(movement >= distance)
 				{
@@ -199,10 +199,10 @@ namespace Arkham
 					ChangeLocationTo(destination);
 					Console.WriteLine(name + " has " + movement + " movement left");
 				}
-				else Console.WriteLine(name + " has " + movement + " movement points, and "
-					+ destination + " requires " + distance);
+				else Console.WriteLine(name + " has " + movement + " movement points, and " + destination + " requires " + distance);
 			}
-			else Console.WriteLine("Location not connected, is " + distance + " spots away"); //TODO: add recursivity
+			else Console.WriteLine(location + " and " + destination
+				+ " are not connected"); //TODO: add recursivity
 		}
 
 		internal void ChangeLocationTo(Location destination)
@@ -222,11 +222,18 @@ namespace Arkham
 			movement = getSpeed();
 		}
 
-		internal void CloseGate(CityLocation loc)
+		internal void CloseGate()
 		{
-			Gate gate = loc.OpenGate;
-			gateTrophies.Add(gate);
-			Board.CloseGate(loc);
+			if(location is CityLocation)
+			{
+				Gate gate = ((CityLocation)location).OpenGate;
+				if(gate != null)
+				{
+					gateTrophies.Add(gate);
+					Console.WriteLine(name + " closed the gate to " + gate.OtherWorld);
+					Board.CloseGate((CityLocation)location);
+				}
+			}
 		}
 	}
 }
