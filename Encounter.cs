@@ -4,46 +4,35 @@ namespace Arkham
 {
 	internal class Encounter
 	{
-		internal static void Mainx()
-		{
-			//Investigator(name, currStam/total, currSanity/total, speed, sneak, fight, will, lore, luck)
-			Investigator mike = MichaelMcGlen.Instance;
-			Investigator kate = KateWinthrop.Instance;
-			Investigator bob = BobJenkins.Instance;
-			bob.moveSlider(1,-1);
-			mike.moveSlider(1, -1);
-			//Monster(sneak, horrorCheck, internal, fight, damage, toughness)
-			Monster bat = new Monster("bat", Shape.Circle, MovementType.Normal, -1, -1, 3, -1, 2, 1);
-			initMonster(mike, bat);
-			//test closegate
-			
-		}
-
-		internal static void initMonster(Investigator i, Monster m)
+		internal static void MonsterEncounter(Investigator i, Monster m)
 		{
 			bool avoidMon = false;
 			string response = "";
-			Console.WriteLine(i.name + " has encountered a " + m.name  + ". R)un or F)ight?");
+			Console.WriteLine(i.name + " has encountered a " + m.Name  + ". R)un or F)ight?");
 			response = Console.ReadLine();
 			if(response.ToUpper().StartsWith("R"))
 			{
-				avoidMon = evade(i, m);
+				avoidMon = Evade(i, m);
 			}
 			if(! avoidMon)
 			{
-				fightMon(i, m);
+				FightMon(i, m);
 			}
 			i.resolve();
 		}
 
-		private static bool horrorCheck(Investigator i, Monster m)
+		private static int HorrorCheckMod(Investigator i, Monster m)
+		{
+			return i.HorrorCheckMod + m.HorrorCheckMod;
+		}
+		private static bool HorrorCheck(Investigator i, Monster m)
 		{
 			Console.WriteLine("Horror Check");
 			Console.Write("  ");
 			bool fightOver = false;
-			if(i.RollDice(i.getWill() + m.horrorCheck) < 1)
+			if(i.RollDice(HorrorCheckMod(i, m)) < 1)
 			{
-				m.horrify(i);
+				m.Horrify(i);
 				fightOver = i.sanity[0] <= 0;
 			}
 			else
@@ -53,12 +42,12 @@ namespace Arkham
 			return fightOver;
 		}
 
-		private static bool combat(Investigator i, Monster m)
+		private static bool Combat(Investigator i, Monster m)
 		{
 			Console.WriteLine("Combat Check");
 			Console.Write("  ");
 			bool fightOver;
-			if(i.RollDice(i.getFight() + m.fight) > m.toughness)
+			if(i.RollDice(i.Fight + m.Fight) > m.Toughness)
 			{
 				System.Console.WriteLine("Investigator won!");
 				fightOver = true;
@@ -71,12 +60,12 @@ namespace Arkham
 			return fightOver;
 		}
 
-		private static bool evade(Investigator i, Monster m)
+		private static bool Evade(Investigator i, Monster m)
 		{
 			Console.WriteLine("Evade check");
 			Console.Write("  ");
 			bool fightOver;
-			if(i.RollDice(i.getSneak() + m.horrorCheck) < 1)
+			if(i.RollDice(i.Sneak + m.Awareness) < 1)
 			{
 				m.attack(i);
 				fightOver = i.stamina[0] <= 0;
@@ -89,10 +78,10 @@ namespace Arkham
 			return fightOver;
 		}
 
-		internal static void fightMon(Investigator i, Monster m)
+		internal static void FightMon(Investigator i, Monster m)
 		{
 			bool fightOver = false;
-			fightOver = horrorCheck(i, m);
+			fightOver = HorrorCheck(i, m);
 			String response = "";
 			while(!fightOver)
 			{
@@ -100,11 +89,11 @@ namespace Arkham
 				response = Console.ReadLine();
 				if(response.ToUpper().StartsWith("R"))
 				{
-					fightOver = evade(i, m);
+					fightOver = Evade(i, m);
 				}
 				else
 				{
-					fightOver = combat(i, m);
+					fightOver = Combat(i, m);
 				}
 			}
 			i.resolve();

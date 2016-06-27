@@ -33,17 +33,19 @@ namespace Arkham
 			this.speedSneakBar = bars[0];
 			this.fightWillBar = bars[1];
 			this.loreLuckBar = bars[2];
-			movement = getSpeed();
+			movement = Speed;
 			gateTrophies = new List<Gate>();
 			monsterTrophies = new List<Monster>();
 		}
 		
-		internal int getSpeed() {return speed + speedSneakBar;}
-		internal int getSneak() {return sneak - speedSneakBar;}
-		internal int getFight() {return fight + fightWillBar;}
-		internal int getWill() {return will - fightWillBar;}
-		internal int getLore() {return lore + loreLuckBar;}
-		internal int getLuck() {return luck - loreLuckBar;}
+		internal Location Location {get{return location;}}
+		internal int Speed {get{return speed + speedSneakBar;}}
+		internal int Sneak {get{return sneak - speedSneakBar;}}
+		internal int Fight {get{return fight + fightWillBar;}}
+		internal int Will {get{return will - fightWillBar;}}
+		internal int Lore {get{return lore + loreLuckBar;}}
+		internal int Luck {get{return luck - loreLuckBar;}}
+		internal int HorrorCheckMod {get{return Will;}}
 
 		internal int currentHealth()
 		{
@@ -139,7 +141,7 @@ namespace Arkham
 			success = Math.Min(6, success + 1);
 		}
 
-		internal void moveSlider(int bar, int amount) //bar 1 = speed/sneak, 2 = fight/will, 3 = lore/luck
+		internal void MoveSlider(int bar, int amount) //bar 1 = speed/sneak, 2 = fight/will, 3 = lore/luck
 		{
 			if (bar < 1 || bar > 3)
 			{
@@ -213,13 +215,13 @@ namespace Arkham
 			destination.Add(this);
 		}
 
-		internal void newTurn()
+		internal void NewTurn()
 		{
 			//TODO: unexhaust cards
 			focus[0] = focus[1];
 			//TODO: move focus bar
 			//TODO: powers at beginning of turn
-			movement = getSpeed();
+			movement = Speed;
 		}
 
 		internal void CloseGate()

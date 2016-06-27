@@ -18,7 +18,9 @@ namespace Arkham
 			//player1.MoveTo(Southside.Instance);
 			//player1.MoveTo(Uptown.Instance);
 			player1.MoveTo(MiskatonicU.Instance);
-			player1.newTurn();
+			Monster bat = new Monster("bat", Shape.Circle, MovementType.Normal, -1, -1, 3, -1, 2, 1);
+			Encounter.MonsterEncounter(player1, bat);
+			player1.NewTurn();
 			//player1.MoveTo(MercDistrict.Instance);
 			//player1.MoveTo(Northside.Instance);
 			player1.MoveTo(Newspaper.Instance);
@@ -26,6 +28,8 @@ namespace Arkham
 			gb.openGate(Newspaper.Instance);
 			player1.ChangeLocationTo(Newspaper.Instance);
 			player1.CloseGate();
+			player1.NewTurn();
+			player1.MoveTo(MercDistrict.Instance);
 		}
 
 		internal GameBoard()
@@ -200,7 +204,7 @@ namespace Arkham
 				loc.Remove(m);
 				this.Remove(m);
 				m.Location = null;
-				addToCup(m);
+				AddToCup(m);
 			}
 		}
 
@@ -227,7 +231,7 @@ namespace Arkham
 			}
 		}
 
-		internal void addToCup(Monster mon)
+		internal void AddToCup(Monster mon)
 		{
 			//TODO: add monster back to cup deck and shuffle
 		}
@@ -239,6 +243,16 @@ namespace Arkham
 		internal void IncreaseTerror(int increase)
 		{
 			terrorTrackLvl += increase;
+		}
+		
+		internal List<Investigator> InvestigatorsInStreets()
+		{
+			List<Investigator> streetInvestigators = new List<Investigator>();
+			foreach(Investigator i in investigators)
+			{
+				if(i.Location is Street) streetInvestigators.Add(i);
+			}
+			return streetInvestigators;
 		}
 	}
 }
