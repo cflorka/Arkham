@@ -5,41 +5,23 @@ namespace Arkham
 {
 	internal class GameBoard
 	{
-		int terrorTrackLvl;
-		List<Monster> monsOnBoard;
-		List<Gate> openGates;
-		List<Investigator> investigators = new List<Investigator>();
+		private int terrorTrackLvl;
+		private List<Monster> monsOnBoard;
+		private List<Gate> openGates;
+		private List<Investigator> investigators;
 		//TODO: Decks: MonsterCup, Mythos, Common, Unique, Spell, Skill, Encounter Decks, etc.
-
-		public static void Main()
-		{
-			GameBoard gb = new GameBoard();
-			Investigator player1 = gb.investigators[0];
-			//player1.MoveTo(Southside.Instance);
-			//player1.MoveTo(Uptown.Instance);
-			player1.MoveTo(MiskatonicU.Instance);
-			Monster bat = new Monster("bat", Shape.Circle, MovementType.Normal, -1, -1, 3, -1, 2, 1);
-			Encounter.MonsterEncounter(player1, bat);
-			player1.NewTurn();
-			//player1.MoveTo(MercDistrict.Instance);
-			//player1.MoveTo(Northside.Instance);
-			player1.MoveTo(Newspaper.Instance);
-			gb.openGate(Newspaper.Instance);
-			gb.openGate(Newspaper.Instance);
-			player1.ChangeLocationTo(Newspaper.Instance);
-			player1.CloseGate();
-			player1.NewTurn();
-			player1.MoveTo(MercDistrict.Instance);
-		}
 
 		internal GameBoard()
 		{
 			terrorTrackLvl = 0;
+			investigators  = new List<Investigator>();
 			monsOnBoard = new List<Monster>();
 			openGates = new List<Gate>();
 			InitLocations();
 			InitInvestigators();
 		}
+
+		internal List<Investigator> Investigators{ get{return investigators;}}
 
 		internal void InitInvestigators()
 		{
@@ -107,7 +89,7 @@ namespace Arkham
 		{
 			monsOnBoard.Add(m);
 			loc.Add(m);
-			m.Location = loc;
+			m.PlaceOnBoard(this, loc);
 		}
 
 		internal static void connectNeighborhood(Street street, params ArkhamLocation[] arkLocs)
@@ -203,7 +185,6 @@ namespace Arkham
 				loc = m.Location;
 				loc.Remove(m);
 				this.Remove(m);
-				m.Location = null;
 				AddToCup(m);
 			}
 		}

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Arkham
 {
 	enum MovementType{Normal, Fast, Flying, Stationary, Unique};
@@ -6,7 +9,8 @@ namespace Arkham
 	{
 		private string name;
 		private int awareness, horrorCheckMod, sanityDam, fight, damage, toughness;
-		private GameBoard Board;
+		private GameBoard board;
+		private Location location;
 		private Shape shape;
 		private MovementType moveType;
 
@@ -26,12 +30,18 @@ namespace Arkham
 
 		internal string Name{get{return name;}}
 		internal Shape Shape{get{return shape;}}
-		internal Location Location{get; set;}
+		internal Location Location{get{return location;}}
 		internal MovementType MoveType{get{return moveType;}}
 		internal int HorrorCheckMod{get{return horrorCheckMod;}}
 		internal int Fight{get{return fight;}}
 		internal int Toughness{get{return toughness;}}
 		internal int Awareness{get{return awareness;}}
+
+		internal void PlaceOnBoard(GameBoard board, Location loc)
+		{
+			this.board = board;
+			location = loc;
+		}
 
 		internal void attack(Investigator i)
 		{
@@ -45,43 +55,83 @@ namespace Arkham
 
 		internal void Move(ArkhamLocation loc)
 		{
-			Location.Remove(this);
-			Location = loc;
+			location.Remove(this);
+			location = loc;
 		}
 
 		internal void Move(ArrowColor color)
 		{
-			ArkhamLocation loc = (ArkhamLocation)Location;
-			switch(MoveType)
+			ArkhamLocation loc = (ArkhamLocation)location;
+			if(!location.HasInvestigators)
 			{
-				case MovementType.Stationary:
-					break;
-				case MovementType.Normal:
-					Move(loc.GetArrowLocation(color));
-					break;
-				case MovementType.Fast:
-					Move(loc.GetArrowLocation(color));
-					Move(loc.GetArrowLocation(color));
-					break;
-				case MovementType.Flying:
-					Fly();
-					break;
-				case MovementType.Unique:
-					UniqueMove();
-					break;
+				switch(MoveType)
+				{
+					case MovementType.Stationary:
+						break;
+					case MovementType.Normal:
+						Move(loc.GetArrowLocation(color));
+						break;
+					case MovementType.Fast:
+						Move(loc.GetArrowLocation(color));
+						Move(loc.GetArrowLocation(color));
+						break;
+					case MovementType.Flying:
+						FlyingMove();
+						break;
+					case MovementType.Unique:
+						UniqueMove();
+						break;
+				}
 			}
 		}
 
-		private void Fly()
+		private void FlyingMove()
 		{
-			if(Location is Sky)
+			if(location is Sky)
 			{
-				//find least sneaky in the streets
+				Swoop();
 			}
 			else
 			{
-				
+				bool closeInvestigator = false;
+				//TODO: Add logic for 
+				if(closeInvestigator)
+				{
+					//TODO
+				}
+				else
+				{
+					location = Sky.Instance; 
+				}
 			}
+		}
+
+		private void Swoop()
+		{
+			List<Investigator> streetTargets = board.InvestigatorsInStreets();
+			if(streetTargets.Count > 0)
+			{
+				HuntLeastSneaky(streetTargets);
+			}
+		}
+
+		//Presumption: invList is not empty
+		private void HuntLeastSneaky(List<Investigator> invList)
+		{
+			Move((ArkhamLocation)LeastSneaky(invList).Location);
+		}
+
+		private Investigator LeastSneaky(List<Investigator> invList)
+		{
+			Investigator leastSneaky = invList[0];
+			foreach(Investigator i in invList)
+			{
+				if(i.Sneak < leastSneaky.Sneak)
+				{
+					leastSneaky = i;
+				}
+			}
+			return leastSneaky;
 		}
 
 		private void UniqueMove(){} //TODO
