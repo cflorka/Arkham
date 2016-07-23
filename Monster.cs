@@ -63,10 +63,7 @@ namespace Arkham
 
 		internal void Move(ArrowColor color)
 		{
-			bool monsterMove = (location is ArkhamLocation
-							&& !location.HasInvestigators())
-							|| location is Sky;
-			if(monsterMove)
+			if(!location.HasInvestigators() || location is Sky)
 			{
 				switch(MoveType)
 				{

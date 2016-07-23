@@ -12,7 +12,7 @@ namespace Arkham
 			//player1.MoveTo(Southside.Instance);
 			//player1.MoveTo(Uptown.Instance);
 			player1.MoveTo(FrenchHill.Instance);
-			Monster bat = new Monster("bat", Shape.Circle, MovementType.Flying, -1, -1, 3, -1, 2, 1);
+			Monster bat = new Monster("Bat", Shape.Circle, MovementType.Flying, -1, -1, 3, -1, 2, 1);
 			gb.Add(bat, MercDistrict.Instance);
 			//Encounter.MonsterEncounter(player1, bat);
 			//player1.NewTurn();
