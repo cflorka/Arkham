@@ -7,24 +7,25 @@ namespace Arkham
 	internal class Location
 	{
 		string name;
-		List<Investigator> investigators;
-		List<Monster> monsters;
 		//ToDo clueTokens/events
 		internal Location(string name)
 		{
 			this.name = name;
-			investigators = new List<Investigator>();
-			monsters = new List<Monster>();
+			Investigators = new List<Investigator>();
+			Monsters = new List<Monster>();
 			ConnectedLocations = new List<Location>();
 		}
-		internal void Add(Investigator i){investigators.Add(i);}
-		internal void Add(Monster m){monsters.Add(m);}
-		internal void Remove(Investigator i){investigators.Remove(i);}
-		internal void Remove(Monster m){monsters.Remove(m);}
-		internal List<Location> ConnectedLocations{ get; set; }
-
-		internal List<Investigator> Investigators{ get {return investigators;}}
+		internal List<Investigator> Investigators{ get; set; }
+		internal void Add(Investigator i){Investigators.Add(i);}
+		internal void Remove(Investigator i){Investigators.Remove(i);}
 		internal bool HasInvestigators(){return Investigators.Count > 0;}
+
+		internal List<Monster> Monsters{ get; set; }
+		internal void Add(Monster m){Monsters.Add(m);}
+		internal void Remove(Monster m){Monsters.Remove(m);}
+		internal bool HasMonsters(){return Monsters.Count > 0;}
+
+		internal List<Location> ConnectedLocations{ get; set; }
 
 		internal static void Connect(Location loc1, Location loc2)
 		{

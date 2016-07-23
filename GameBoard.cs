@@ -202,13 +202,12 @@ namespace Arkham
 			return monsterList;
 		}
 
-		private void MoveOn(Shape shape, ArrowColor color)
+		internal void MoveOn(Shape shape, ArrowColor color)
 		{
 			List<Monster> monstersMoving = GetMonstersWithShape(shape);
 			foreach(Monster m in monstersMoving)
 			{
 				m.Move(color);
-				//TODO: Handle special movement types
 			}
 		}
 

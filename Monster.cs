@@ -53,27 +53,31 @@ namespace Arkham
 			i.loseSanity(sanityDam);
 		}
 
-		internal void Move(ArkhamLocation loc)
+		internal void Move(Location loc)
 		{
 			location.Remove(this);
+			System.Console.WriteLine(name + " moved from " + location + " to " + loc);
 			location = loc;
+			loc.Add(this);
 		}
 
 		internal void Move(ArrowColor color)
 		{
-			ArkhamLocation loc = (ArkhamLocation)location;
-			if(!location.HasInvestigators)
+			bool monsterMove = (location is ArkhamLocation
+							&& !location.HasInvestigators())
+							|| location is Sky;
+			if(monsterMove)
 			{
 				switch(MoveType)
 				{
 					case MovementType.Stationary:
 						break;
 					case MovementType.Normal:
-						Move(loc.GetArrowLocation(color));
+						Move(((ArkhamLocation)location).GetArrowLocation(color));
 						break;
 					case MovementType.Fast:
-						Move(loc.GetArrowLocation(color));
-						Move(loc.GetArrowLocation(color));
+						Move(((ArkhamLocation)location).GetArrowLocation(color));
+						Move(((ArkhamLocation)location).GetArrowLocation(color));
 						break;
 					case MovementType.Flying:
 						FlyingMove();
@@ -93,15 +97,21 @@ namespace Arkham
 			}
 			else
 			{
-				bool closeInvestigator = false;
-				//TODO: Add logic for 
-				if(closeInvestigator)
+				List<Investigator> closeTargets = new List<Investigator>();
+				foreach(Location loc in location.ConnectedLocations)
 				{
-					//TODO
+					if(loc is Street && loc.HasInvestigators())
+					{
+						closeTargets.AddRange(loc.Investigators);
+					}
+				}
+				if(closeTargets.Count > 0)
+				{
+					HuntLeastSneaky(closeTargets);
 				}
 				else
 				{
-					location = Sky.Instance; 
+					Move(Sky.Instance); 
 				}
 			}
 		}
