@@ -63,18 +63,19 @@ namespace Arkham
 
 		internal void Move(ArrowColor color)
 		{
-			if(!location.HasInvestigators() || location is Sky)
+			bool nearInvestigators = location.HasInvestigators();
+			if(!(nearInvestigators || location is Outskirts) || location is Sky)
 			{
 				switch(MoveType)
 				{
 					case MovementType.Stationary:
 						break;
 					case MovementType.Normal:
-						Move(((ArkhamLocation)location).GetArrowLocation(color));
+						Move(((ArkhamLocation)location).GetArrowTarget(color));
 						break;
 					case MovementType.Fast:
-						Move(((ArkhamLocation)location).GetArrowLocation(color));
-						Move(((ArkhamLocation)location).GetArrowLocation(color));
+						Move(((ArkhamLocation)location).GetArrowTarget(color));
+						Move(((ArkhamLocation)location).GetArrowTarget(color));
 						break;
 					case MovementType.Flying:
 						FlyingMove();

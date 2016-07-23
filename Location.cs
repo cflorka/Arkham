@@ -51,7 +51,7 @@ namespace Arkham
 			arrowLocations.Add(color, loc);
 		}
 
-		internal ArkhamLocation GetArrowLocation(ArrowColor color)
+		internal ArkhamLocation GetArrowTarget(ArrowColor color)
 		{
 			return arrowLocations[color];
 		}
