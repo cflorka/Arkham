@@ -71,11 +71,11 @@ namespace Arkham
 					case MovementType.Stationary:
 						break;
 					case MovementType.Normal:
-						Move(((ArkhamLocation)location).GetArrowTarget(color));
+						Move(((CityLocation)location).GetArrowTarget(color));
 						break;
 					case MovementType.Fast:
-						Move(((ArkhamLocation)location).GetArrowTarget(color));
-						Move(((ArkhamLocation)location).GetArrowTarget(color));
+						Move(((CityLocation)location).GetArrowTarget(color));
+						Move(((CityLocation)location).GetArrowTarget(color));
 						break;
 					case MovementType.Flying:
 						FlyingMove();
@@ -126,7 +126,7 @@ namespace Arkham
 		//Presumption: invList is not empty
 		private void HuntLeastSneaky(List<Investigator> invList)
 		{
-			Move((ArkhamLocation)LeastSneaky(invList).Location);
+			Move((CityLocation)LeastSneaky(invList).Location);
 		}
 
 		private Investigator LeastSneaky(List<Investigator> invList)

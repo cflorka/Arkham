@@ -226,14 +226,14 @@ namespace Arkham
 
 		internal void CloseGate()
 		{
-			if(location is CityLocation)
+			if(location is Site)
 			{
-				Gate gate = ((CityLocation)location).OpenGate;
+				Gate gate = ((Site)location).OpenGate;
 				if(gate != null)
 				{
 					gateTrophies.Add(gate);
 					Console.WriteLine(name + " closed the gate to " + gate.OtherWorld);
-					Board.CloseGate((CityLocation)location);
+					Board.CloseGate((Site)location);
 				}
 			}
 		}

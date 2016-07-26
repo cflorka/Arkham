@@ -15,7 +15,7 @@ namespace Arkham
 			this.shape = shape;
 		}
 		
-		internal ArkhamLocation Location{ get; set; }
+		internal CityLocation Location{ get; set; }
 		internal OtherWorldLocation OtherWorld{ get {return otherWorld;} }
 		internal Shape Shape{ get {return shape;} }
 	}

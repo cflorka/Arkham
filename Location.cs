@@ -36,22 +36,22 @@ namespace Arkham
 		internal new string ToString(){return name;}
 	}
 
-	internal class ArkhamLocation:Location
+	internal class CityLocation:Location
 	{
-		private Dictionary<ArrowColor, ArkhamLocation> arrowLocations;
-		internal ArkhamLocation(string name):base(name)
+		private Dictionary<ArrowColor, CityLocation> arrowLocations;
+		internal CityLocation(string name):base(name)
 		{
-			arrowLocations = new Dictionary<ArrowColor, ArkhamLocation>();
+			arrowLocations = new Dictionary<ArrowColor, CityLocation>();
 		}
 
-		internal ArkhamLocation Location{ get; set; }
+		internal CityLocation Location{ get; set; }
 
-		internal void SetArrowLocation(ArrowColor color, ArkhamLocation loc)
+		internal void SetArrowLocation(ArrowColor color, CityLocation loc)
 		{
 			arrowLocations.Add(color, loc);
 		}
 
-		internal ArkhamLocation GetArrowTarget(ArrowColor color)
+		internal CityLocation GetArrowTarget(ArrowColor color)
 		{
 			return arrowLocations[color];
 		}
@@ -66,21 +66,21 @@ namespace Arkham
 			return connectedStreets;
 		}
 	}
-	internal class CityLocation:ArkhamLocation
+	internal class Site:CityLocation
 	{
-		internal CityLocation(string name):base(name) {}
+		internal Site(string name):base(name) {}
 
 		internal Street ConnectedStreet{ get; set; }
 		internal Gate OpenGate{ get; set; }
 	}
-	internal class Street:ArkhamLocation
+	internal class Street:CityLocation
 	{
 		internal Street(string name):base(name) {}
 	}
 
 	internal class OtherWorldLocation:Location
 	{
-		internal List<ArkhamLocation> OpenGateLocations;
+		internal List<CityLocation> OpenGateLocations;
 		internal OtherWorldLocation first, second;
 		internal OtherWorldLocation(string name, bool parent):base(name)
 		{
@@ -88,7 +88,7 @@ namespace Arkham
 			{
 				first = new OtherWorldLocation(name + " 1", false);
 				second = new OtherWorldLocation(name + " 2", false);
-				OpenGateLocations = new List<ArkhamLocation>();
+				OpenGateLocations = new List<CityLocation>();
 				first.ConnectedLocations.Add(second);
 			}
 		}

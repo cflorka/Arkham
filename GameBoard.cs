@@ -85,16 +85,16 @@ namespace Arkham
 		}
 
 		internal void Remove(Monster m){monsOnBoard.Remove(m);}
-		internal void Add(Monster m, ArkhamLocation loc)
+		internal void Add(Monster m, CityLocation loc)
 		{
 			monsOnBoard.Add(m);
 			loc.Add(m);
 			m.PlaceOnBoard(this, loc);
 		}
 
-		internal static void connectNeighborhood(Street street, params ArkhamLocation[] arkLocs)
+		internal static void connectNeighborhood(Street street, params CityLocation[] arkLocs)
 		{
-			foreach(ArkhamLocation loc in arkLocs)
+			foreach(CityLocation loc in arkLocs)
 			{
 				Location.Connect(street, loc);
 				loc.SetArrowLocation(ArrowColor.Black, loc);
@@ -119,7 +119,7 @@ namespace Arkham
 			{
 				List<Street> checkedStreets = new List<Street>();
 				List<Street> nextStreetsToCheck = new List<Street>();
-				HashSet<Street> streetsToCheck = new HashSet<Street>(((ArkhamLocation)start).ConnectedStreets());
+				HashSet<Street> streetsToCheck = new HashSet<Street>(((CityLocation)start).ConnectedStreets());
 				bool found = false;
 				while(!found)
 				{
@@ -141,7 +141,7 @@ namespace Arkham
 			return distance;
 		}
 
-		internal void openGate(CityLocation loc)
+		internal void openGate(Site loc)
 		{
 			if(loc.OpenGate == null)
 			{
@@ -163,7 +163,7 @@ namespace Arkham
 			else Console.WriteLine("MONSTER SURGE!!!"); //TODO: Monster surge logic
 		}
 
-		internal void CloseGate(CityLocation loc)
+		internal void CloseGate(Site loc)
 		{
 			Gate closingGate = loc.OpenGate; 
 			loc.OpenGate = null;
