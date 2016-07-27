@@ -1,26 +1,36 @@
+using System.Collections.Generic;
+
 namespace Arkham
 {
-	internal enum CardType{Unique, Common, Skill, Spell, ArkhamEncounter, OtherWorldEncounter};
-	
 	internal class Card
 	{
-		CardType type;
 		string title;
 		string body;
 		
-		internal Card(CardType type, string title, string body)
+		internal Card(string title, string body)
 		{
-			this.type = type;
 			this.title = title;
 			this.body = body;
 		}
 		
-		internal int Cost{ get; set; }
+		public override string ToString()
+		{
+			return title + ": " + body;
+		}
 	}
-	
-	internal class UniqueItem : Card
+
+	internal class Item : Card
 	{
-		internal UniqueItem(string title, string body)
-			:base(CardType.Unique, title, body){}
+		internal Item(string title, string body, int price)
+			:base(title, body)
+		{
+			Price = price;
+		}
+		internal int Price{ get; set; }
+	}
+
+	internal class UniqueItem : Item
+	{
+		internal UniqueItem(string title, string body, int price) : base(title, body, price){}
 	}
 }

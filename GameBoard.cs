@@ -9,7 +9,11 @@ namespace Arkham
 		private List<Monster> monsOnBoard;
 		private List<Gate> openGates;
 		private List<Investigator> investigators;
-		//TODO: Decks: MonsterCup, Mythos, Common, Unique, Spell, Skill, Encounter Decks, etc.
+		private Environment environment;
+		private Rumor rumor;
+		private Deck<Mythos> mythosDeck;
+		private Deck<Monster> monsterCup;
+		//TODO: Decks: Common, Unique, Spell, Skill, Encounter Decks, etc.
 
 		internal GameBoard()
 		{
@@ -19,11 +23,10 @@ namespace Arkham
 			openGates = new List<Gate>();
 			InitLocations();
 			InitInvestigators();
+			InitDecks();
 		}
 
-		internal List<Investigator> Investigators{ get{return investigators;}}
-
-		internal void InitInvestigators()
+		private void InitInvestigators()
 		{
 			//TODO: Select random investigators for n players
 			investigators.Add(MichaelMcGlen.Instance);
@@ -32,7 +35,7 @@ namespace Arkham
 			foreach(Investigator i in investigators) i.Board = this;
 		}
 
-		internal void InitLocations()
+		private void InitLocations()
 		{
 			//Uptown neighborhood
 			Street uptown = Uptown.Instance;
@@ -82,6 +85,25 @@ namespace Arkham
 			Location.Connect(rivertown, mercDist);
 			Location.Connect(mercDist, downtown);
 			Location.Connect(miskU, frenchHill);
+		}
+
+		private void InitDecks()
+		{
+			//TODO: 
+			mythosDeck = new Deck<Mythos>();
+			monsterCup = new Deck<Monster>();
+		}
+
+		internal List<Investigator> Investigators{get{return investigators;}}
+
+		internal List<Investigator> InvestigatorsInStreets()
+		{
+			List<Investigator> streetInvestigators = new List<Investigator>();
+			foreach(Investigator i in investigators)
+			{
+				if(i.Location is Street) streetInvestigators.Add(i);
+			}
+			return streetInvestigators;
 		}
 
 		internal void Remove(Monster m){monsOnBoard.Remove(m);}
@@ -224,15 +246,29 @@ namespace Arkham
 		{
 			terrorTrackLvl += increase;
 		}
-		
-		internal List<Investigator> InvestigatorsInStreets()
+		internal void DiscardEnvironment()
 		{
-			List<Investigator> streetInvestigators = new List<Investigator>();
-			foreach(Investigator i in investigators)
-			{
-				if(i.Location is Street) streetInvestigators.Add(i);
-			}
-			return streetInvestigators;
+			Discard(environment);
+			environment = null;
+		}
+
+		internal void PassRumor()
+		{
+			rumor.Pass();
+			Discard(rumor);
+			rumor = null;
+		}
+
+		internal void FailRumor()
+		{
+			rumor.Fail();
+			Discard(rumor);
+			rumor = null;
+		}
+
+		internal void Discard(Card card)
+		{
+			if (card is Mythos) mythosDeck.AddToBottom((Mythos)card);
 		}
 	}
 }
