@@ -1,0 +1,23 @@
+Count,Item,Price,Type,Hands,Bonus,Rules
+2,.18 Derringer,$3 ,Physical weapon,1,2,
+2,.38 Revolver,$4 ,Physical weapon,1,3,
+2,.45 Automatic,$5 ,Physical weapon,1,4,
+2,Ancient Tome,$4 ,Tome,,,"Exhaust and spend 2 movement points to make a Lore (-1) check. If you pass, draw 1 Spell and discard Ancient Tome. If you fail, nothing happens"
+2,Axe,$3 ,Physical weapon,1,2, +1 Combat bonus if one hand empty
+2,Bullwhip,$2 ,Physical weapon,1,1,Exhaust to re-roll 1 die after making a Combat check
+2,Cavalry Saber,$3 ,Physical weapon,1,2,
+2,Cross,$3 ,Magical weapon,1,0, +1 Horror Check. +3 Combat vs. Undead
+2,Dark Cloak,$2 ,,,, +1 Evade Check
+2,Dynamite,$4 ,Physical weapon,2,8,Discard after use
+2,Food,$1 ,,,,Discard to reduce any Stamina loss by 1
+2,Knife,$2 ,Physical weapon,1,1,
+2,Lantern,$3 ,,,,+1 to Luck checks.
+2,Lucky Cigarette Case,$1 ,,,,Discard Lucky Cigarette Case to re-roll any one Skill check
+2,Map of Arkham,$2 ,,,,Exhaust to get 1 extra movement point
+2,Motorcycle,$4 ,,,,Exhaust to get 2 extra movement points
+2,Old Journal,$1 ,Tome,,,"Exhaust and spend 1 movement point to make a Lore (-1) check. If you pass, gain 3 Clue tokens and discard Old Journal. If you fail, nothing happens"
+2,Research Materials,$1 ,,,,Discard Research Materials instead of spending 1 Clue token
+2,Rifle,$6 ,Physical weapon,2,5,
+2,Shotgun,$6 ,Physical weapon,2,4,"When using Shotgun in Combat, all 6's rolled count as 2 successes."
+2,Tommy Gun,$7 ,Physical weapon,2,6,
+2,Whiskey,$1 ,,,,Discard Whiskey to reduce any Sanity loss by 1.
