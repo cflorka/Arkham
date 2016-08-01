@@ -9,13 +9,13 @@ namespace Arkham
 
 		internal Mythos(string title, string body,
 			CityLocation gateLocation, CityLocation clueLocation,
-			List<Shape> whiteShapes, List<Shape> blackShapes)
+			IEnumerable<Shape> whiteShapes, IEnumerable<Shape> blackShapes)
 		:base(title, body)
 		{
 			this.gateLocation = gateLocation;
 			this.clueLocation = clueLocation;
-			this.whiteShapes = whiteShapes;
-			this.blackShapes = blackShapes;
+			this.whiteShapes = new List<Shape>(whiteShapes);
+			this.blackShapes = new List<Shape>(blackShapes);
 		}
 
 		internal void Resolve()
@@ -34,7 +34,7 @@ namespace Arkham
 
 		internal Environment(string title, EnvironmentType type, string body,
 			CityLocation gateLocation, CityLocation clueLocation,
-			List<Shape> whiteShapes, List<Shape> blackShapes)
+			IEnumerable<Shape> whiteShapes, IEnumerable<Shape> blackShapes)
 		:base(title, body, gateLocation, clueLocation, whiteShapes, blackShapes)
 		{
 			this.type = type;
@@ -49,10 +49,18 @@ namespace Arkham
 	{
 		internal Rumor(string title, string body,
 			CityLocation gateLocation, CityLocation clueLocation,
-			List<Shape> whiteShapes, List<Shape> blackShapes)
+			IEnumerable<Shape> whiteShapes, IEnumerable<Shape> blackShapes)
 		:base(title, body, gateLocation, clueLocation, whiteShapes, blackShapes){}
 
 		internal void Pass(){}
 		internal void Fail(){}
+	}
+
+	internal class Headline : Mythos
+	{
+		internal Headline(string title, string body,
+			CityLocation gateLocation, CityLocation clueLocation,
+			IEnumerable<Shape> whiteShapes, IEnumerable<Shape> blackShapes)
+		:base(title, body, gateLocation, clueLocation, whiteShapes, blackShapes){}
 	}
 }

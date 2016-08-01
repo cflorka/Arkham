@@ -27,6 +27,11 @@ namespace Arkham
 			//player1.MoveTo(MercDistrict.Instance);
 			gb.MoveOn(Shape.Circle, ArrowColor.Black);
 			gb.MoveOn(Shape.Circle, ArrowColor.Black);
+			Deck<Mythos> mythosDeck = new Deck<Mythos>(MythosDeck.List);
+			mythosDeck.Shuffle();
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
 		}
 	}
 }
