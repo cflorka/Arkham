@@ -1,0 +1,27 @@
+Count,Item,Price,Type,Hands,Bonus,Text
+1,Alien Statue,$5 ,,,,"Movement: Exhaust and spend 2 movement points and 1 Sanity to roll a die. If the die is a success, draw 1 Spell or gain 3 Clue tokens. If it is a failure, lose 2 Stamina"
+1,Ancient Tablet,$8 ,,,,"Movement: Spend 3 movement points and discard Ancient Tablet to roll 2 dice. For every success rolled, draw 1 Spell. For every failure rolled, gain 2 Clue tokens."
+1,Blue Watcher of the Pyramid,$4 ,,,,Lose 2 Stamina and discard Blue Watcher of the Pyramid to automatically succeed at a Combat check or a Fight check or Lore check made to close a gate. This cannot be used against an Ancient One
+1,Book of Dzyan,$3 ,Tome,,,"Movement: Exhaust and spend 2 movement points to make a Lore (-1) check. If you pass, draw 1 Spell, lose 1 Sanity, and put 1 Stamina token from the bank on Book of Dzyan. If there are 2 Stamina tokens on it, discard Book of Dzyan. If you fail, nothing happens"
+2,Cabala of Saboth,$5 ,Tome,,,"Movement: Exhaust and spend 2 movement points to make a Lore (-2) check. If you pass, draw 1 Skill and discard Cabala of Saboth. If you fail, nothing happens"
+2,Cultes des Goules,$3 ,Tome,,,"Movement: Exhaust and spend 2 movement points to make a Lore (-2) check. If you pass, draw 1 Spell and gain 1 Clue token, but lose 2 Sanity and discard Cultes Des Goules. If you fail, nothing happens"
+1,Dragon's Eye,$6 ,,,,Any phase: Exhaust and lose 1 Sanity after drawing a gate or location card to draw a new card in its place
+4,Elder Sign,$5 ,,,,"Any Phase: When sealing a gate, lose 1 Stamina and 1 Sanity and return this card to the box. You do not need to make a skill check or spend any Clue tokens to seal the gate. In addition, remove one doom token from the Ancient One's doom track"
+2,Enchanted Blade,$6 ,Magical weapon,1,4,
+1,Enchanted Jewelry,$3 ,,,,"Any Phase: Put 1 Stamina token from the bank on Enchanted Jewelry to avoid losing 1 Stamina. If there are 3 Stamina tokens on it, discard Enchanted Jewelry"
+2,Enchanted Knife,$5 ,Magical weapon,1,3,
+1,Flute of the Outer Gods,$8 ,,,,Any Phase: Lose 3 Sanity and 3 Stamina and discard Flute of the Outer Gods before making a Combat check to defeat all monsters in your current area. This does not affect Ancient Ones
+1,Gate Box,$4 ,,,,"Any Phase: When you return to Arkham from an Other World, you can return to any location with an open gate, not just those leading to the Other World you were in"
+1,Healing Stone,$8 ,,,,Upkeep: You may gain 1 Stamina or 1 Sanity. Discard Healing Stone if the Ancient One awakens
+4,Holy Water,$4 ,Magical weapon,2,6,Discard after use.
+1,Lamp of Alhazred,$7 ,Magical weapon,2,5,
+2,Nameless Cults,$3 ,Tome,,,"Movement: Exhaust and spend 1 movement point to make a Lore (-1) check. If you pass, draw 1 Spell, lose 1 Sanity, and discard Nameless Cults. If you fail, nothing happens"
+1,Necronomicon,$6 ,Tome,,,"Movement: Exhaust and spend 2 movement points to make a Lore (-2) check. If you pass, draw 1 Spell and lose 2 Sanity. If you fail, nothing happens"
+1,Obsidian Statue,$4 ,,,,Any Phase: Discard Obsidian Statue to cancel all Stamina or Sanity loss being dealt to you from one source
+1,Pallid Mask,$4 ,,,,Bonus: +2 Evade check
+2,Powder of Ibn-Ghazi,$6 ,Magical weapon,2,9,Discard and lose 1 sanity after use.
+1,Ruby of R'lyeh,$8 ,,,,Movement: You get 3 extra movement points
+1,Silver Key,$4 ,,,,Any Phase: Put 1 Stamina token from the bank on Silver Key before making an Evade check to automatically pass it. Discard Silver Key after using it if there are 3 Stamina tokens on it
+1,Sword of Glory,$8 ,Magical weapon,2,6,
+2,The King in Yellow,$2 ,Tome,,,"Movement: Exhaust and spend 2 movement points to make a Lore (-2) check. If you pass, gain 4 Clue tokens, lose 1 Sanity and discard The King in Yellow. If you fail nothing happens"
+1,Warding Statue,$6 ,,,,Any Phase: Discard Warding Statue after failing a Combat check to reduce the monster's combat damage to 0 Stamina. This can also be used to cancel an Ancient One's entire attack for 1 turn
