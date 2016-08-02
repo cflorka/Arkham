@@ -18,7 +18,9 @@ namespace Arkham
 			//TestMonsterEncounter(player1, bat);
 			//TestInvestigatorMovement(player1);
 			//TestMonsterMovement(bat);
-			TestMythos(mythosDeck);
+			//TestMythos(mythosDeck);
+			//TestInvestigatorsWhere();
+			TestPhases();
 		}
 
 		public static void TestMonsterEncounter(Investigator investigator, Monster mon)
@@ -37,6 +39,7 @@ namespace Arkham
 			investigator.MoveTo(Newspaper.Instance);
 			investigator.NewTurn();
 			investigator.MoveTo(MercDistrict.Instance);
+			investigator.MoveTo(MiskatonicU.Instance);
 		}
 
 		public static void TestMonsterMovement(Monster mon)
@@ -91,6 +94,22 @@ namespace Arkham
 			player1.ChangeLocationTo(Newspaper.Instance);
 			player1.CloseGate();
 			player1.ChangeLocationTo(startLoc);
+		}
+
+		public static void TestInvestigatorsWhere()
+		{
+			player1.ChangeLocationTo(MiskatonicU.Instance);
+			List<Investigator> list = gb.InvestigatorsWhere(i => i.Location is Street);
+			foreach(Investigator i in list)
+			{
+				Console.WriteLine(i.Location);
+			}
+		}
+
+		public static void TestPhases()
+		{
+			PlayGame game = new PlayGame();
+			game.Run();
 		}
 	}
 }

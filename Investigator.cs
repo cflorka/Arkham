@@ -216,7 +216,7 @@ namespace Arkham
 				else Console.WriteLine(name + " has " + movement + " movement points, and " + destination + " requires " + distance);
 			}
 			else Console.WriteLine(location + " and " + destination
-				+ " are not connected"); //TODO: add recursivity
+				+ " are not connected");
 		}
 
 		internal void ChangeLocationTo(Location destination)

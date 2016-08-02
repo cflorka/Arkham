@@ -89,38 +89,19 @@ namespace Arkham
 
 		private void FlyingMove()
 		{
-			if(location is Sky)
-			{
-				Swoop();
-			}
+			if(location is Sky) Swoop();
 			else
 			{
-				List<Investigator> closeTargets = new List<Investigator>();
-				foreach(Location loc in location.ConnectedLocations)
-				{
-					if(loc is Street && loc.HasInvestigators())
-					{
-						closeTargets.AddRange(loc.Investigators);
-					}
-				}
-				if(closeTargets.Count > 0)
-				{
-					HuntLeastSneaky(closeTargets);
-				}
-				else
-				{
-					Move(Sky.Instance); 
-				}
+				List<Investigator> closeTargets = adjacentTargets();
+				if(closeTargets.Count > 0) HuntLeastSneaky(closeTargets);
+				else Move(Sky.Instance);
 			}
 		}
 
 		private void Swoop()
 		{
 			List<Investigator> streetTargets = board.InvestigatorsInStreets();
-			if(streetTargets.Count > 0)
-			{
-				HuntLeastSneaky(streetTargets);
-			}
+			if(streetTargets.Count > 0) HuntLeastSneaky(streetTargets);
 		}
 
 		//Presumption: invList is not empty
@@ -134,12 +115,22 @@ namespace Arkham
 			Investigator leastSneaky = invList[0];
 			foreach(Investigator i in invList)
 			{
-				if(i.Sneak < leastSneaky.Sneak)
-				{
-					leastSneaky = i;
-				}
+				if(i.Sneak < leastSneaky.Sneak) leastSneaky = i;
 			}
 			return leastSneaky;
+		}
+
+		private List<Investigator> adjacentTargets()
+		{
+			List<Investigator> adjacentTargets = new List<Investigator>();
+			foreach(Location loc in location.ConnectedLocations)
+			{
+				if(loc is Street && loc.HasInvestigators())
+				{
+					adjacentTargets.AddRange(loc.Investigators);
+				}
+			}
+			return adjacentTargets;
 		}
 
 		private void UniqueMove(){} //TODO

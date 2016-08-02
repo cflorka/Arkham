@@ -26,15 +26,6 @@ namespace Arkham
 			InitDecks();
 		}
 
-		private void InitInvestigators()
-		{
-			//TODO: Select random investigators for n players
-			investigators.Add(MichaelMcGlen.Instance);
-			investigators.Add(BobJenkins.Instance);
-			investigators.Add(KateWinthrop.Instance);
-			foreach(Investigator i in investigators) i.Board = this;
-		}
-
 		private void InitLocations()
 		{
 			//Uptown neighborhood
@@ -87,6 +78,26 @@ namespace Arkham
 			Location.Connect(miskU, frenchHill);
 		}
 
+		private void InitInvestigators()
+		{
+			//TODO: Select random investigators for n players
+			Add(MichaelMcGlen.Instance);
+			Add(BobJenkins.Instance);
+			Add(KateWinthrop.Instance);
+		}
+
+		internal void Add(Investigator i)
+		{
+			investigators.Add(i);
+			i.Board = this;
+		}
+
+		internal void Remove(Investigator i)
+		{
+			investigators.Remove(i);
+			i.Board = null;
+		}
+
 		private void InitDecks()
 		{
 			//TODO: 
@@ -96,14 +107,26 @@ namespace Arkham
 
 		internal List<Investigator> Investigators{get{return investigators;}}
 
-		internal List<Investigator> InvestigatorsInStreets()
+		public delegate bool InvestigatorTest(Investigator i);
+
+		internal List<Investigator> InvestigatorsWhere(InvestigatorTest test)
 		{
-			List<Investigator> streetInvestigators = new List<Investigator>();
+			List<Investigator> investigatorsFound = new List<Investigator>();
 			foreach(Investigator i in investigators)
 			{
-				if(i.Location is Street) streetInvestigators.Add(i);
+				if(test(i)) investigatorsFound.Add(i);
 			}
-			return streetInvestigators;
+			return investigatorsFound;
+		}
+		
+		internal List<Investigator> InvestigatorsInStreets()
+		{
+			return InvestigatorsWhere(i => i.Location is Street);
+		}
+
+		internal List<Investigator> InvestigatorsInOtherWorld()
+		{
+			return InvestigatorsWhere(i => i.Location is OtherWorldLocation);
 		}
 
 		internal void Remove(Monster m){monsOnBoard.Remove(m);}
