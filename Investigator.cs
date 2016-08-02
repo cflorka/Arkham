@@ -11,10 +11,11 @@ namespace Arkham
 		private int speed, sneak, fight, will, lore, luck, movement;
 		private int speedSneakBar, fightWillBar, loreLuckBar;
 		internal int success = 5;
-		internal List<Gate> gateTrophies;
-		internal List<Monster> monsterTrophies;
-		List<SuccessCalculator> calculators;
-		List<Item> equipment;
+		internal List<Gate> gateTrophies = new List<Gate>();
+		internal List<Monster> monsterTrophies = new List<Monster>();
+		List<SuccessCalculator> calculators = new List<SuccessCalculator>();
+		List<Item> items = new List<Item>();
+		List<Equipable> equipment = new List<Equipable>();
 
 		internal Investigator(string name, Location location,
 			int maxSanity, int maxStamina, int maxFocus, int[] bars,
@@ -36,9 +37,6 @@ namespace Arkham
 			this.fightWillBar = bars[1];
 			this.loreLuckBar = bars[2];
 			movement = Speed;
-			gateTrophies = new List<Gate>();
-			monsterTrophies = new List<Monster>();
-			calculators = new List<SuccessCalculator>();
 			calculators.Add(defaultNumOfSuccesses);
 		}
 		
@@ -236,6 +234,7 @@ namespace Arkham
 			focus[0] = focus[1];
 			//TODO: move focus bar
 			//TODO: powers at beginning of turn
+			//TODO: items at beginning of turn
 			movement = Speed;
 		}
 
@@ -251,6 +250,31 @@ namespace Arkham
 					Board.CloseGate((Site)location);
 				}
 			}
+		}
+
+		internal void UseItem(Item item)
+		{
+			item.UseOn(this);
+		}
+
+		internal void TakeItem(Item item)
+		{
+			items.Add(item);
+		}
+
+		internal void LoseItem(Item item)
+		{
+			items.Remove(item);
+		}
+
+		internal void Equip(Equipable item)
+		{
+			equipment.Add(item);
+		}
+
+		internal void Unequip(Equipable item)
+		{
+			equipment.Remove(item);
 		}
 	}
 }

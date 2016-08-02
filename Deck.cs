@@ -23,6 +23,9 @@ namespace Arkham
 			RuffleShuffle();
 			RuffleShuffle();
 			RuffleShuffle();
+			RuffleShuffle();
+			RuffleShuffle();
+			RuffleShuffle();
 		}
 
 		private void RuffleShuffle()

@@ -18,19 +18,4 @@ namespace Arkham
 			return title;
 		}
 	}
-
-	internal class Item : Card
-	{
-		internal Item(string title, string body, int price)
-			:base(title, body)
-		{
-			Price = price;
-		}
-		internal int Price{ get; set; }
-	}
-
-	internal class UniqueItem : Item
-	{
-		internal UniqueItem(string title, string body, int price) : base(title, body, price){}
-	}
 }
