@@ -15,10 +15,10 @@ namespace Arkham
 			//TestGate();
 			//player1.Curse();
 			//player1.Bless();
-			TestMonsterEncounter(player1, bat);
+			//TestMonsterEncounter(player1, bat);
 			//TestInvestigatorMovement(player1);
 			//TestMonsterMovement(bat);
-			//TestMythos(mythosDeck);
+			TestMythos(mythosDeck);
 		}
 
 		public static void TestMonsterEncounter(Investigator investigator, Monster mon)
@@ -49,6 +49,33 @@ namespace Arkham
 		public static void TestMythos(Deck<Mythos> mythosDeck)
 		{
 			mythosDeck.Shuffle();
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
+			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
 			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
 			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
 			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());

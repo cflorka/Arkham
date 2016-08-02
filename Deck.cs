@@ -20,12 +20,12 @@ namespace Arkham
 
 		internal void Shuffle()
 		{
-			SingleShuffle();
-			SingleShuffle();
-			SingleShuffle();
+			RuffleShuffle();
+			RuffleShuffle();
+			RuffleShuffle();
 		}
 
-		private void SingleShuffle()
+		private void RuffleShuffle()
 		{
 			Deck<T> temp = new Deck<T>();
 			int count = Count;

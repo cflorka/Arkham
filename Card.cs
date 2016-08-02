@@ -15,7 +15,7 @@ namespace Arkham
 		
 		public override string ToString()
 		{
-			return title + ": " + body;
+			return title;
 		}
 	}
 
