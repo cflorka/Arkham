@@ -2,6 +2,8 @@ using System;
 
 namespace Arkham
 {
+	public delegate int SuccessCalculator(int[] diceRolls);
+
 	public class Dice
 	{
 		private static Random roller = new Random();

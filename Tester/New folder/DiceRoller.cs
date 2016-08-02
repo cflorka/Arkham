@@ -1,6 +1,31 @@
 using System;
 namespace SimpleEvent
 {
+	public delegate void DiceRollHandler(object sender, DiceRolls e);
+
+	public class DiceRolls : EventArgs
+	{
+		public int[] rolls;
+
+		public DiceRolls(int[] rolls)
+		{
+			this.rolls = rolls;
+		}
+	}
+
+	class DiceRoller
+	{
+		public event DiceRollHandler DiceRollHandlers;
+
+		public void RollDice(int numOfDice)
+		{
+			if (DiceRollHandlers != null)
+			{
+				DiceRollHandlers(this, new DiceRolls(numOfDice));
+			}
+		}
+	}
+	
 	public class RunDiceRolls
 	{
 		static void Main()

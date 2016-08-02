@@ -13,6 +13,8 @@ namespace Arkham
 		internal int success = 5;
 		internal List<Gate> gateTrophies;
 		internal List<Monster> monsterTrophies;
+		List<SuccessCalculator> calculators;
+		List<Item> equipment;
 
 		internal Investigator(string name, Location location,
 			int maxSanity, int maxStamina, int maxFocus, int[] bars,
@@ -36,6 +38,8 @@ namespace Arkham
 			movement = Speed;
 			gateTrophies = new List<Gate>();
 			monsterTrophies = new List<Monster>();
+			calculators = new List<SuccessCalculator>();
+			calculators.Add(defaultNumOfSuccesses);
 		}
 		
 		internal Location Location {get{return location;}}
@@ -110,6 +114,16 @@ namespace Arkham
 
 		internal int numOfSuccesses(int[] rolls)
 		{
+			int numOfSuccesses = 0;
+			foreach(SuccessCalculator calc in calculators)
+			{
+				numOfSuccesses += calc(rolls);
+			}
+			return numOfSuccesses;
+		}
+
+		internal int defaultNumOfSuccesses(int[] rolls)
+		{
 			Console.Write(name);
 			int successes = 0;
 			if(rolls.Length == 0) Console.WriteLine(" auto-failed!");
@@ -118,25 +132,25 @@ namespace Arkham
 				Console.WriteLine(" rolled " + string.Join(", ", rolls) + ";");
 				foreach(int roll in rolls)
 				{
-					successes += numOfSuccesses(roll);
+					successes += NumOfSuccesses(roll);
 				}
 			}
 			return successes;
 		}
 
-		internal int numOfSuccesses(int roll)
+		private int NumOfSuccesses(int roll)
 		{
 			int numOfSuccesses = 0;
 			if(roll >= success) ++numOfSuccesses;
 			return numOfSuccesses;
 		}
 
-		internal void bless()
+		internal void Bless()
 		{
 			success = Math.Max(4, success - 1);
 		}
 
-		internal void curse()
+		internal void Curse()
 		{
 			success = Math.Min(6, success + 1);
 		}
@@ -217,6 +231,7 @@ namespace Arkham
 
 		internal void NewTurn()
 		{
+			Console.WriteLine("New Turn");
 			//TODO: unexhaust cards
 			focus[0] = focus[1];
 			//TODO: move focus bar
