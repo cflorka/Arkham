@@ -7,8 +7,8 @@ namespace Arkham
 {
 	internal static class MythosDeck
 	{
-		static List<Mythos> list = new List<Mythos>();
-		static List<Mythos> List{get{return list;}}
+		static List<MythosCard> list = new List<MythosCard>();
+		static List<MythosCard> List{get{return list;}}
 		static MythosDeck()
 		{"""
 endingLines = """\n		}

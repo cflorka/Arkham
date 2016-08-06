@@ -18,7 +18,7 @@ namespace Arkham
 			cards = new LinkedList<T>(list);
 		}
 
-		internal void Shuffle()
+		public void Shuffle()
 		{
 			RuffleShuffle();
 			RuffleShuffle();
@@ -43,25 +43,25 @@ namespace Arkham
 			this.cards = new LinkedList<T>(temp.cards);
 		}
 
-		internal T Draw()
+		public T Draw()
 		{
 		var card = cards.First.Value;
 		cards.RemoveFirst();
 		return card;
 		}
 
-		internal T DrawBottom()
+		public T DrawBottom()
 		{
 			var card = cards.Last.Value;
 			cards.RemoveLast();
 			return card;
 		}
 
-		internal void Add(T card){cards.AddFirst(card);}
-		internal void AddToBottom(T card){cards.AddLast(card);}
-		internal T TopCard{get{return cards.First.Value;}}
-		internal T BottomCard{get{return cards.Last.Value;}}
-		internal int Count{get{return cards.Count;}}
-		internal bool IsEmpty(){return cards.Count == 0;} 
+		public void Add(T card){cards.AddFirst(card);}
+		public void AddToBottom(T card){cards.AddLast(card);}
+		public T TopCard{get{return cards.First.Value;}}
+		public T BottomCard{get{return cards.Last.Value;}}
+		public int Count{get{return cards.Count;}}
+		public bool IsEmpty(){return cards.Count == 0;} 
 	}
 }

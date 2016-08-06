@@ -276,5 +276,16 @@ namespace Arkham
 		{
 			equipment.Remove(item);
 		}
+
+		internal void DrawFrom(Deck<Card> deck)
+		{
+			
+		}
+
+		internal void Discard(Card card)
+		{
+			card.Discard();
+			//TODO: Logic to remove from investigator
+		}
 	}
 }

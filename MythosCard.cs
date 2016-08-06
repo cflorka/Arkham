@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 namespace Arkham
 {
-	internal class Mythos : Card
+	internal class MythosCard : Card
 	{
 		List<Shape> whiteShapes, blackShapes;
 		CityLocation gateLocation, clueLocation;
 
-		internal Mythos(string title, string body,
+		internal MythosCard(string title, string body,
 			CityLocation gateLocation, CityLocation clueLocation,
 			IEnumerable<Shape> whiteShapes, IEnumerable<Shape> blackShapes)
 		:base(title, body)
@@ -25,10 +25,12 @@ namespace Arkham
 			//MoveMonsters
 			//ActiveMythosAbility
 		}
+
+		internal override void Discard() {Decks.Mythos.AddToBottom(this);}
 	}
 
 	internal enum EnvironmentType{Mystic, Urban, Weather}
-	internal class Environment : Mythos
+	internal class Environment : MythosCard
 	{
 		EnvironmentType type;
 
@@ -45,7 +47,7 @@ namespace Arkham
 		internal void Effect(){}
 	}
 
-	internal class Rumor : Mythos
+	internal class Rumor : MythosCard
 	{
 		internal Rumor(string title, string body,
 			CityLocation gateLocation, CityLocation clueLocation,
@@ -56,7 +58,7 @@ namespace Arkham
 		internal void Fail(){}
 	}
 
-	internal class Headline : Mythos
+	internal class Headline : MythosCard
 	{
 		internal Headline(string title, string body,
 			CityLocation gateLocation, CityLocation clueLocation,

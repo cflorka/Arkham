@@ -3,11 +3,12 @@ using System.Collections.Generic;
 
 namespace Arkham
 {
-	internal static class MythosDeck
+	internal static class MythosDeckData
 	{
-		static List<Mythos> list = new List<Mythos>();
-		internal static List<Mythos> List{get{return list;}}
-		static MythosDeck()
+		public static List<MythosCard> list = new List<MythosCard>();
+		internal static List<MythosCard> List{get{return list;}}
+		
+		static MythosDeckData()
 		{
 			list.Add(new Environment("A Strange Plague", EnvironmentType.Mystic
 				, "Investigators cannot gain Stamina except by receiving medical care in St. Mary's Hospital (or from Vincent Lee). Pass:  Fail: "

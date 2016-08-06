@@ -5,22 +5,18 @@ namespace Arkham
 {
 	internal class GameBoard
 	{
-		private int terrorTrackLvl;
-		private List<Monster> monsOnBoard;
-		private List<Gate> openGates;
-		private List<Investigator> investigators;
+		private int terrorTrackLvl = 0;
+		private List<Monster> monsOnBoard = new List<Monster>();
+		private List<Gate> openGates = new List<Gate>();
+		private List<Investigator> investigators  = new List<Investigator>();
 		private Environment environment;
 		private Rumor rumor;
-		private Deck<Mythos> mythosDeck;
 		private Deck<Monster> monsterCup;
+		static Deck<MythosCard> MythosDeck = Decks.Mythos;
 		//TODO: Decks: Common, Unique, Spell, Skill, Encounter Decks, etc.
 
 		internal GameBoard()
 		{
-			terrorTrackLvl = 0;
-			investigators  = new List<Investigator>();
-			monsOnBoard = new List<Monster>();
-			openGates = new List<Gate>();
 			InitLocations();
 			InitInvestigators();
 			InitDecks();
@@ -101,7 +97,6 @@ namespace Arkham
 		private void InitDecks()
 		{
 			//TODO: 
-			mythosDeck = new Deck<Mythos>();
 			monsterCup = new Deck<Monster>();
 		}
 
@@ -269,29 +264,29 @@ namespace Arkham
 		{
 			terrorTrackLvl += increase;
 		}
+
 		internal void DiscardEnvironment()
 		{
-			Discard(environment);
+			environment.Discard();
 			environment = null;
+		}
+
+		internal void DiscardRumor()
+		{
+			rumor.Discard();
+			rumor = null;
 		}
 
 		internal void PassRumor()
 		{
 			rumor.Pass();
-			Discard(rumor);
-			rumor = null;
+			DiscardRumor();
 		}
 
 		internal void FailRumor()
 		{
 			rumor.Fail();
-			Discard(rumor);
-			rumor = null;
-		}
-
-		internal void Discard(Card card)
-		{
-			if (card is Mythos) mythosDeck.AddToBottom((Mythos)card);
+			DiscardRumor();
 		}
 	}
 }

@@ -8,7 +8,6 @@ namespace Arkham
 		static GameBoard gb = new GameBoard();
 		static Investigator player1 = gb.Investigators[0];
 		static Monster bat = new Monster("Bat", Shape.Circle, MovementType.Flying, -1, -1, 3, -1, 2, 1);
-		static Deck<Mythos> mythosDeck = new Deck<Mythos>(MythosDeck.List);
 
 		public static void Main()
 		{
@@ -18,7 +17,7 @@ namespace Arkham
 			//TestMonsterEncounter(player1, bat);
 			//TestInvestigatorMovement(player1);
 			//TestMonsterMovement(bat);
-			//TestMythos(mythosDeck);
+			//TestMythos(gb.MythosDeck);
 			//TestInvestigatorsWhere();
 			TestPhases();
 		}
@@ -49,7 +48,7 @@ namespace Arkham
 			gb.MoveOn(Shape.Circle, ArrowColor.Black);
 		}
 
-		public static void TestMythos(Deck<Mythos> mythosDeck)
+		public static void TestMythos(Deck<MythosCard> mythosDeck)
 		{
 			mythosDeck.Shuffle();
 			System.Console.WriteLine("Drew " + mythosDeck.Draw().ToString());
