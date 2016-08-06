@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Arkham
 {
-	internal class Investigator
+	internal partial class Investigator
 	{
 		internal String name;
 		internal Location location;
@@ -14,8 +14,6 @@ namespace Arkham
 		internal List<Gate> gateTrophies = new List<Gate>();
 		internal List<Monster> monsterTrophies = new List<Monster>();
 		List<SuccessCalculator> calculators = new List<SuccessCalculator>();
-		List<Item> items = new List<Item>();
-		List<Equipable> equipment = new List<Equipable>();
 
 		internal Investigator(string name, Location location,
 			int maxSanity, int maxStamina, int maxFocus, int[] bars,
@@ -250,42 +248,6 @@ namespace Arkham
 					Board.CloseGate((Site)location);
 				}
 			}
-		}
-
-		internal void UseItem(Item item)
-		{
-			item.UseOn(this);
-		}
-
-		internal void TakeItem(Item item)
-		{
-			items.Add(item);
-		}
-
-		internal void LoseItem(Item item)
-		{
-			items.Remove(item);
-		}
-
-		internal void Equip(Equipable item)
-		{
-			equipment.Add(item);
-		}
-
-		internal void Unequip(Equipable item)
-		{
-			equipment.Remove(item);
-		}
-
-		internal void DrawFrom(Deck<Card> deck)
-		{
-			
-		}
-
-		internal void Discard(Card card)
-		{
-			card.Discard();
-			//TODO: Logic to remove from investigator
 		}
 	}
 }

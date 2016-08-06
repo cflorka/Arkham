@@ -45,9 +45,9 @@ namespace Arkham
 
 		public T Draw()
 		{
-		var card = cards.First.Value;
-		cards.RemoveFirst();
-		return card;
+			var card = cards.First.Value;
+			cards.RemoveFirst();
+			return card;
 		}
 
 		public T DrawBottom()
