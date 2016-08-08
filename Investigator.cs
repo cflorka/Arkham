@@ -209,9 +209,11 @@ namespace Arkham
 				{
 					movement -= distance;
 					ChangeLocationTo(destination);
-					Console.WriteLine(name + " has " + movement + " movement left");
+					Console.WriteLine(name + " moved to " + destination +
+						", and has " + movement + " movement left");
 				}
-				else Console.WriteLine(name + " has " + movement + " movement points, and " + destination + " requires " + distance);
+				else Console.WriteLine(name + " has " + movement +
+					" movement points, and " + destination + " requires " + distance);
 			}
 			else Console.WriteLine(location + " and " + destination
 				+ " are not connected");
@@ -234,6 +236,22 @@ namespace Arkham
 			//TODO: powers at beginning of turn
 			//TODO: items at beginning of turn
 			movement = Speed;
+		}
+
+		internal void Upkeep()
+		{
+		}
+
+		internal void Move()
+		{
+		}
+
+		internal void OtherWorldMove()
+		{
+		}
+
+		internal void AdjustSliders()
+		{
 		}
 
 		internal void CloseGate()

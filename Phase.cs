@@ -5,37 +5,56 @@ namespace Arkham
 {
 	internal abstract class Phase
 	{
-		internal abstract bool Run();
+		internal abstract bool Run(List<Investigator> investigators);
 	}
 
 	internal class UpkeepPhase : Phase
 	{
-		internal override bool Run()
+		internal override bool Run(List<Investigator> investigators)
 		{
 			Console.WriteLine("UpkeepPhase");
+			foreach(Investigator i in investigators)
+			{
+				i.UnexhaustItems();
+				i.Upkeep();
+				i.AdjustSliders();
+			}
 			return false;
 		}
 		//a) Untap
 		//b) Items/Investigator powers
+		//b) Adjust Skills
 	}
 
 	internal class MovementPhase : Phase
 	{
-		internal override bool Run()
+		internal override bool Run(List<Investigator> investigators)
 		{
 			Console.WriteLine("MovementPhase");
+			foreach(Investigator i in investigators)
+			{
+				if(i.Location is OtherWorldLocation) i.OtherWorldMove();
+				else
+				{
+					i.Move();
+				}
+			}
 			return false;
 		}
 		/* (skip if delayed)
 		a) Items (tomes, etc.)
 		b) Move pieces
-			i) Arkham movement (sneak past/fight monsters)
+			i) Arkham movement
+				receive movement points
+				move/trade
+				fight
+				pickup token
 			ii) Otherworld movement */
 	}
 
 	internal class CityPhase : Phase
 	{
-		internal override bool Run()
+		internal override bool Run(List<Investigator> investigators)
 		{
 			Console.WriteLine("CityPhase");
 			return false;
@@ -47,7 +66,7 @@ namespace Arkham
 
 	internal class OtherWorldPhase : Phase
 	{
-		internal override bool Run()
+		internal override bool Run(List<Investigator> investigators)
 		{
 			Console.WriteLine("OtherWorldPhase");
 			return false;
@@ -57,7 +76,7 @@ namespace Arkham
 
 	internal class MythosPhase : Phase
 	{
-		internal override bool Run()
+		internal override bool Run(List<Investigator> investigators)
 		{
 			Console.WriteLine("MythosPhase");
 			return false;

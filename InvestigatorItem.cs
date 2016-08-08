@@ -76,5 +76,7 @@ namespace Arkham
 				TakeItem(item);
 			}
 		}
+		
+		internal void UnexhaustItems() {foreach(Item i in items) i.UnExhaust();}
 	}
 }

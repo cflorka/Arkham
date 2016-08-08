@@ -7,16 +7,22 @@ namespace Arkham
 	internal abstract class Item : Card
 	{
 		private ItemType type;
+		private bool isExhausted;
+		
 		internal Item(ItemType type, string title, string body, int price)
 			:base(title, body)
 		{
 			Price = price;
 			this.type = type;
+			isExhausted = false;
 		}
 		internal int Price{ get; set; }
 		internal ItemType Type{ get{return type;} }
 		internal abstract void UseOn(Investigator i);
 		internal override abstract void Discard();
+		internal bool IsExhausted{get{return isExhausted;}}
+		internal void Exhaust(){isExhausted = true;}
+		internal void UnExhaust(){isExhausted = false;}
 	}
 
 	internal abstract class UniqueItem : Item
