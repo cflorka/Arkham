@@ -5,12 +5,25 @@ namespace Arkham
 {
 	internal abstract class Phase
 	{
-		internal abstract bool Run(List<Investigator> investigators);
+		public event PhaseStartHandler PhaseStart;
+		public event PhaseEndHandler PhaseEnd;
+		public delegate void PhaseEndHandler(Phase p);
+		public delegate void PhaseStartHandler();
+
+		internal bool Run(List<Investigator> investigators)
+		{
+			bool GameOver;
+			if (PhaseStart != null) PhaseStart();
+			GameOver = InvestigatorActions(investigators);
+			if (PhaseEnd != null && !GameOver) PhaseEnd(this);
+			return GameOver;
+		}
+		internal abstract bool InvestigatorActions(List<Investigator> investigators);
 	}
 
 	internal class UpkeepPhase : Phase
 	{
-		internal override bool Run(List<Investigator> investigators)
+		internal override bool InvestigatorActions(List<Investigator> investigators)
 		{
 			Console.WriteLine("UpkeepPhase");
 			foreach(Investigator i in investigators)
@@ -28,7 +41,7 @@ namespace Arkham
 
 	internal class MovementPhase : Phase
 	{
-		internal override bool Run(List<Investigator> investigators)
+		internal override bool InvestigatorActions(List<Investigator> investigators)
 		{
 			Console.WriteLine("MovementPhase");
 			foreach(Investigator i in investigators)
@@ -54,7 +67,7 @@ namespace Arkham
 
 	internal class CityPhase : Phase
 	{
-		internal override bool Run(List<Investigator> investigators)
+		internal override bool InvestigatorActions(List<Investigator> investigators)
 		{
 			Console.WriteLine("CityPhase");
 			return false;
@@ -66,7 +79,7 @@ namespace Arkham
 
 	internal class OtherWorldPhase : Phase
 	{
-		internal override bool Run(List<Investigator> investigators)
+		internal override bool InvestigatorActions(List<Investigator> investigators)
 		{
 			Console.WriteLine("OtherWorldPhase");
 			return false;
@@ -76,7 +89,7 @@ namespace Arkham
 
 	internal class MythosPhase : Phase
 	{
-		internal override bool Run(List<Investigator> investigators)
+		internal override bool InvestigatorActions(List<Investigator> investigators)
 		{
 			Console.WriteLine("MythosPhase");
 			return false;

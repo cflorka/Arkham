@@ -8,7 +8,7 @@ namespace SimpleEvent
 	{
 		public static List<Calculator> calcs = new List<Calculator>();
 		
-		public static void Main()
+		public static void xMain()
 		{
 			int a = 2;
 			int b = 3;

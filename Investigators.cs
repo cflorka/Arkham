@@ -17,6 +17,16 @@ namespace Arkham
 			//1 Skill
 			//ToDo: StartingLocation: Ma's Boarding Home
 		}
+		
+		public void Subscribe(Phase phase)
+		{
+			phase.PhaseStart += new Phase.PhaseStartHandler(FYeah);
+		}
+		
+		public void FYeah()
+		{
+			Console.WriteLine("F YEAH!!!!");
+		}
 
 		internal static MichaelMcGlen Instance{ get { return instance; } }
 

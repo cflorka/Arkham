@@ -10,22 +10,24 @@ namespace wildert
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(3000);
+                System.Threading.Thread.Sleep(500);
                 if (Tick != null) Tick(this, e);
             }
         }
     }
-        public class Listener
-        {
-            public void Subscribe(Metronome m)
-            {m.Tick += new Metronome.TickHandler(HeardIt);}
+	public class Listener
+	{
+		public void Subscribe(Metronome m)
+		{
+			m.Tick += new Metronome.TickHandler(HeardIt);
+		}
 
-            private void HeardIt(Metronome m, EventArgs e)
-            {System.Console.WriteLine("HEARD IT");}
-        }
+		private void HeardIt(Metronome m, EventArgs e)
+		{System.Console.WriteLine("HEARD IT");}
+	}
     class Test
     {
-        static void Main()
+        static void xMain()
         {
             Metronome m = new Metronome();
             Listener l = new Listener();
