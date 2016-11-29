@@ -110,7 +110,6 @@ namespace Arkham
 			PlayGame game = new PlayGame();
 			Phase cur = new UpkeepPhase();
 			Console.WriteLine(cur.ToString());
-			PhaseStartHandler psh = new Phase.PhaseStartHandler(() => {Console.WriteLine("FYEAH!!!")});
 			game.Run();
 		}
 	}

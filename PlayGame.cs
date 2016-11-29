@@ -18,6 +18,8 @@ namespace Arkham
 			Phase currentPhase = Phases.Current();
 			while(!gameOver && count < 30)
 			{
+                Phase.PhaseStartHandler psh = new Phase.PhaseStartHandler(() => {Console.WriteLine("FYEAH!!!");});
+                currentPhase.PhaseStart += psh;
 				gameOver = currentPhase.Run(board.Investigators);
 				currentPhase = Phases.Next();
 				++count;
