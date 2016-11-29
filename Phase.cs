@@ -103,7 +103,7 @@ namespace Arkham
 
 	internal static class Phases
 	{
-		private static LinkedList<Phase> PhaseList;
+		internal static LinkedList<Phase> PhaseList;
 		private static LinkedListNode<Phase> currentNode;
 
 		static Phases()
@@ -120,6 +120,11 @@ namespace Arkham
 		internal static Phase Current()
 		{
 			return currentNode.Value;
+		}
+
+		internal static Phase get(int index)
+		{
+			return PhaseList.ElementAt(index);
 		}
 
 		internal static Phase Next()

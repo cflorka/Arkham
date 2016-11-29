@@ -11,6 +11,7 @@ namespace Arkham
 
 		public static void Main()
 		{
+            player1.Subscribe(Phases.get(0));
 			//TestGate();
 			//player1.Curse();
 			//player1.Bless();
