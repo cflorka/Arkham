@@ -5,13 +5,15 @@ namespace Arkham
 {
 	static class Test
 	{
-		static GameBoard gb = new GameBoard();
+        
+		static PlayGame game = new PlayGame();
+		static GameBoard gb = game.Board;
 		static Investigator player1 = gb.Investigators[0];
+		static Investigator player2 = gb.Investigators[1];
 		static Monster bat = new Monster("Bat", Shape.Circle, MovementType.Flying, -1, -1, 3, -1, 2, 1);
 
 		public static void Main()
 		{
-            player1.Subscribe(UpkeepPhase.Instance, new Phase.PhaseStartHandler(MichaelMcGlen.Subscribe));
 			//TestGate();
 			//player1.Curse();
 			//player1.Bless();
@@ -108,7 +110,11 @@ namespace Arkham
 
 		public static void TestPhases()
 		{
-			PlayGame game = new PlayGame();
+			Phases.Subscribe(UpkeepPhase.Instance, new Phase.PhaseStartHandler(player1.PhaseSignature));
+			Phases.Subscribe(MythosPhase.Instance, new Phase.PhaseStartHandler(player1.PhaseSignature));
+			Phases.Subscribe(CityPhase.Instance, new Phase.PhaseStartHandler(player1.PhaseSignature));
+			Phases.Subscribe(MovementPhase.Instance, new Phase.PhaseStartHandler(player2.PhaseSignature));
+			Phases.Subscribe(OtherWorldPhase.Instance, new Phase.PhaseStartHandler(player1.PhaseSignature));
 			Phase cur = new UpkeepPhase();
 			Console.WriteLine(cur.ToString());
 			game.Run();

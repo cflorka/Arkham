@@ -18,15 +18,6 @@ namespace Arkham
 			//ToDo: StartingLocation: Ma's Boarding Home
 		}
 		
-		public void Subscribe(Phase phase)
-		{
-			phase.PhaseStart += new Phase.PhaseStartHandler(Signature);
-		}
-		
-		public void Signature()
-		{
-			Console.WriteLine("Michael McGlen is starting his ");
-		}
 
 		internal static MichaelMcGlen Instance{ get { return instance; } }
 

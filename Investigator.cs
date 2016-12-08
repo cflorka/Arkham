@@ -38,10 +38,10 @@ namespace Arkham
 			calculators.Add(defaultNumOfSuccesses);
 		}
 
-		/*public virtual void Subscribe(Phase phase, Phase.PhaseStartHandler psh)
+		public void PhaseSignature()
 		{
-			phase.PhaseStart += psh;
-		}*/
+			Console.WriteLine(name + " is starting " + Phases.Current().ToString());
+		}
 		
 		internal Location Location {get{return location;}}
 		internal int Speed {get{return speed + speedSneakBar;}}
