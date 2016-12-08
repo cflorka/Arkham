@@ -23,6 +23,12 @@ namespace Arkham
 
 	internal class UpkeepPhase : Phase
 	{
+		private static readonly UpkeepPhase instance = new UpkeepPhase();
+        
+		static UpkeepPhase(){}
+		internal static UpkeepPhase Instance{ get { return instance; } }
+        
+        
 		internal override bool InvestigatorActions(List<Investigator> investigators)
 		{
 			Console.WriteLine("UpkeepPhase");
@@ -109,7 +115,7 @@ namespace Arkham
 		static Phases()
 		{
 			PhaseList = new LinkedList<Phase>();
-			PhaseList.AddLast(new UpkeepPhase());
+			PhaseList.AddLast(UpkeepPhase.Instance);
 			PhaseList.AddLast(new MovementPhase());
 			PhaseList.AddLast(new CityPhase());
 			PhaseList.AddLast(new OtherWorldPhase());
@@ -122,10 +128,10 @@ namespace Arkham
 			return currentNode.Value;
 		}
 
-		internal static Phase get(int index)
+/*		internal static Phase get(int index)
 		{
 			return PhaseList.ElementAt(index);
-		}
+		}*/
 
 		internal static Phase Next()
 		{

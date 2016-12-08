@@ -11,7 +11,7 @@ namespace Arkham
 
 		public static void Main()
 		{
-            player1.Subscribe(Phases.get(0));
+            player1.Subscribe(UpkeepPhase.Instance, new Phase.PhaseStartHandler(MichaelMcGlen.Subscribe));
 			//TestGate();
 			//player1.Curse();
 			//player1.Bless();

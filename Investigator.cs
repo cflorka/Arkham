@@ -37,6 +37,11 @@ namespace Arkham
 			movement = Speed;
 			calculators.Add(defaultNumOfSuccesses);
 		}
+
+		/*public virtual void Subscribe(Phase phase, Phase.PhaseStartHandler psh)
+		{
+			phase.PhaseStart += psh;
+		}*/
 		
 		internal Location Location {get{return location;}}
 		internal int Speed {get{return speed + speedSneakBar;}}

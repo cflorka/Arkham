@@ -20,12 +20,12 @@ namespace Arkham
 		
 		public void Subscribe(Phase phase)
 		{
-			phase.PhaseStart += new Phase.PhaseStartHandler(FYeah);
+			phase.PhaseStart += new Phase.PhaseStartHandler(Signature);
 		}
 		
-		public void FYeah()
+		public void Signature()
 		{
-			Console.WriteLine("F YEAH!!!!");
+			Console.WriteLine("Michael McGlen is starting his ");
 		}
 
 		internal static MichaelMcGlen Instance{ get { return instance; } }
