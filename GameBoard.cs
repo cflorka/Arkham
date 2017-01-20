@@ -12,7 +12,7 @@ namespace Arkham
 		private Environment environment;
 		private Rumor rumor;
 		private Deck<Monster> monsterCup;
-		static Deck<MythosCard> MythosDeck = Decks.Mythos;
+		internal Deck<MythosCard> MythosDeck = Decks.Mythos;
 		//TODO: Decks: Common, Unique, Spell, Skill, Encounter Decks, etc.
 
 		internal GameBoard()
